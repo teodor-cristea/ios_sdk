@@ -1,4 +1,4 @@
-Emediate SDK - Android
+Emediate SDK - iOS
 ===========
 
 This is the iOS version of our SDK. If you're just starting out I
