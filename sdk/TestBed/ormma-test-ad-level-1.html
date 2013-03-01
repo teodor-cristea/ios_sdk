@@ -1,0 +1,426 @@
+<!-- Define our styles -->
+<style>
+   #banner { 
+      position:absolute; 
+      left:0px; 
+      top:0px;
+      clip:rect( 0, 300, 50, 0 ); 
+      display:none; 
+   }
+
+
+   #browser {
+      position:absolute;
+      left:25px;
+      top:13px;
+   }
+
+
+   #larger {
+      position:absolute;
+      left:65px;
+      top:13px;
+   }
+
+   #expand {
+      position:absolute;
+      left:220px;
+      top:11px;
+   }
+
+   #hide {
+      position:absolute;
+      left:255px;
+      top:14px;
+   }
+
+   #resizedad { 
+      position:absolute; 
+      left:0px; 
+      top:0px;
+      clip:rect( 0, 300, 250, 0 ); 
+      display:none;
+   }
+
+   #resizedata {
+      position:absolute; 
+      left:15px; 
+      top:15px;
+      color:green;
+   }
+
+   #smaller {
+      position:absolute;
+      left:260px;
+      top:5px;
+   }
+
+   #expandedad { 
+      position:absolute; 
+      left:0px; 
+      top:0px;
+      clip:rect( 0, 300, 250, 0 ); 
+      display:none;
+   }
+
+   #expanddata {
+      position:absolute; 
+      left:15px; 
+      top:15px;
+      color:green;
+   }
+
+   #shrink {
+      position:absolute;
+      left:255px;
+      top:5px;
+   }
+
+   img { 
+      border:none 
+   }
+</style>
+
+<!-- Setup our Javascript -->
+<script language="javascript">
+   // used to capture the value of resize events
+   var resizeText = "No Value";
+
+   /**
+    * Notifies the SDK that the creative wishes to be hidden.
+    *
+    * @requires Ormma
+    */
+   function hideAd() {
+	  if ( confirm( "You have selected the HIDE action. Once hidden, you will lose all interaction with the ad. Continue?" ) ) {
+		  ormma.hide();
+      }
+   }
+
+
+   /**
+    * Notifies the SDK that the default ad wishes to move to the expanded state.
+    *
+    * @requires Ormma
+    */
+   function expandAd() {
+      var pos = ormma.getDefaultPosition();
+	  var size = ormma.getSize();
+	  ormma.expand( { x: pos.x, 
+	                  y: pos.y, 
+					  width: size.width, 
+					  height : 250 } );
+   }
+
+
+   /**
+    * Handles ORMMA errors.
+    *
+    * @param {evt} Event, the error event
+    *
+    * @requires Ormma
+    */
+   function handleErrorEvent( message, action ) {
+      var msg = "ORMMA ERROR ";
+	  if ( action != null ) {
+	     // error caused by an action	
+	     msg += "caused by action '" + action + "', ";
+      }
+      msg += "Message: " + message;
+	  alert( msg );
+   }
+
+
+   /**
+    * Handles Screen Size Changed Events.
+    *
+    * @param {evt} Event, the screen size changed event
+    *
+    * @requires Ormma
+    */
+   function handleKeyboardChangeEvent( open ) {
+      var msg = "Keyboard is now: ";
+      msg += ( open ) ? "OPEN" : "CLOSED";
+      alert( msg );
+   }
+
+
+   /**
+    * Handles Screen Size Changed Events.
+    *
+    * @param {evt} Event, the screen size changed event
+    *
+    * @requires Ormma
+    */
+   function handleScreenSizeChangeEvent( width, height ) {
+      var msg = "Screen Size Changed to " + buildSizeText( width, height );;
+      alert( msg );
+   }
+
+
+   /**
+    * Handles Size Changed Events.
+    *
+    * @param {evt} Event, the size changed event
+    *
+    * @requires Ormma
+    */
+   function handleSizeChangeEvent( width, height ) {
+      var msg = "Ad Size Changed to " + buildSizeText( width, height );;
+      alert( msg );
+   }
+
+
+   /**
+    * Handles whenever the state changes.
+    *
+    * @requires Ormma
+    */
+   function handleStateChangeEvent( state ) {
+      var banner = document.getElementById( 'banner' );
+      var resizedad = document.getElementById( 'resizedad' );
+      var expandedad = document.getElementById( 'expandedad' );
+	  if ( state === 'default' ) {
+	     showDefault();
+      }
+	  else if ( state === 'expanded' ) {
+	     showExpanded();
+      }
+	  else if ( state === 'resized' ) {
+	     showResized();
+      }
+	  else if ( state === 'hidden' ) {
+	     showHidden();
+      }
+   }
+   
+   
+   /**
+    * Opens a new full screen browser.
+    *
+    * @requires Ormma
+	*/
+   function openBrowser() {
+      ormma.open( "http://www.toyota.com" );
+   }
+
+
+   /**
+    * Handles notifications that the ORMMA SDK is fully open for business.
+    *
+    * @requires Ormma
+    */
+   function ORMMAReady() {
+      //  start listening for state changes
+      ormma.addEventListener( 'error', handleErrorEvent );
+      ormma.addEventListener( 'stateChange', handleStateChangeEvent );
+      ormma.addEventListener( 'screenChange', handleScreenSizeChangeEvent );
+      ormma.addEventListener( 'keyboardChange', handleKeyboardChangeEvent );
+	  
+	  // determine our current state
+	  var newState = ormma.getState();
+	  if ( newState === 'default' ) {
+		 showDefault();
+      }
+	  else if ( newState === 'expanded' ) {
+		 showExpanded();
+      }
+	  else {
+	     alert( "Unknown state '" + newState + "' at ORMMA Ready!" );
+	  }
+   }
+
+
+   /**
+    * Notifies the SDK that the default ad wishes to be resized.
+    *
+    * @requires Ormma
+    */
+   function resizeLarger() {
+	  // add a special listener for size changes, to make sure it's firing
+      ormma.addEventListener( 'sizeChange', handleSizeChangeEvent );
+	  ormma.resize( 320, 250 );
+   }
+
+
+   /**
+    * Notifies the SDK that the resized ad wishes to return to the default state.
+    *
+    * @requires Ormma
+    */
+   function resizeSmaller() {
+	  ormma.close();
+   }
+   
+   
+   /**
+    * Causes the appropriate elements for the "default" state to be displayed.
+	*
+	* @requires: Ormma
+	*/
+   function showDefault() {
+         banner.style.display = 'block';
+         resizedad.style.display = 'none';
+         expandedad.style.display = 'none';
+
+         // we only care about the size changed event if we're resizing
+         ormma.removeEventListener( 'sizeChange', handleSizeChangeEvent );
+         resizeText = "No Value";
+   }
+   
+   
+   /**
+    * Causes the appropriate elements for the "expanded" state to be displayed.
+	*
+	* @requires: Ormma
+	*/
+   function showExpanded() {
+         banner.style.display = 'none';
+         resizedad.style.display = 'none';
+         expandedad.style.display = 'block';
+         updateExpandedAd();
+   }
+   
+   
+   /**
+    * Causes the appropriate elements for the "hidden" state to be displayed.
+	*
+	* @requires: Ormma
+	*/
+   function showHidden() {
+         banner.style.display = 'none';
+         resizedad.style.display = 'none';
+         expandedad.style.display = 'none';
+   }
+   
+   
+   /**
+    * Causes the appropriate elements for the "resized" state to be displayed.
+	*
+	* @requires: Ormma
+	*/
+   function showResized() {
+         banner.style.display = 'none';
+         resizedad.style.display = 'block';
+         expandedad.style.display = 'none';
+         updateResizedAd();
+   }
+
+
+   /**
+    * Notifies the SDK that the expanded ad wishes to return to the default state.
+    *
+    * @requires Ormma
+    */
+   function shrinkAd() {
+	  ormma.close();
+   }
+
+
+   /**
+    * Helper that updates the contents of the expanded state.
+    *
+    * @requires Ormma
+    */
+   function updateExpandedAd() {
+   }
+
+
+   /**
+    * Helper that updates the contents of the resized state.
+    *
+    * @requires Ormma
+    */
+   function updateResizedAd() {
+      var state = document.getElementById( 'resizestate' );
+      var screensize = document.getElementById( 'resizescreensize' );
+      var maxsize = document.getElementById( 'resizemaxsize' );
+      var size = document.getElementById( 'resizesize' );
+      var text = document.getElementById( 'resizetext' );
+
+      // update the ad contentx
+      state.innerHTML = ormma.getState();	
+	  var sz = ormma.getScreenSize();
+      screensize.innerHTML = buildSizeText( sz.width, sz.height );	
+	  sz = ormma.getMaxSize();
+      maxsize.innerHTML = buildSizeText( sz.width, sz.height );	
+	  sz = ormma.getSize();
+      size.innerHTML = buildSizeText( sz.width, sz.height );	
+      text.innerHTML = resizeText;
+   }
+
+
+   /**
+    * Helper Function to build a size text from the specified diminsions.
+    */
+   function buildSizeText( width, height ) {
+      var text = width;
+      text += " x ";
+      text += height;
+
+      return text;
+   }
+</script>
+
+<!-- The actual creative -->
+<div id='ad'>
+   <!-- The standard banner ad state (default state) -->
+   <div id='banner'>
+      <img src="http://i.imwx.com/RealMedia/ads/Creatives/creative_repository/ormma/300x50-solid.png"
+           alt="banner advertisement" />
+      <div id='browser'>
+         <img src="http://i.imwx.com/RealMedia/ads/Creatives/creative_repository/ormma/open.png"
+              alt="open Browser"
+              onclick="openBrowser();" />
+      </div>
+      <div id='larger'>
+         <img src="http://i.imwx.com/RealMedia/ads/Creatives/creative_repository/ormma/resize-larger.png"
+              alt="resize"
+              onclick="resizeLarger();" />
+      </div>
+      <div id='expand'>
+         <img src="http://i.imwx.com/RealMedia/ads/Creatives/creative_repository/ormma/expand.png"
+              alt="expand"
+              onclick="expandAd();" />
+      </div>
+      <div id='hide'>
+         <img src="http://i.imwx.com/RealMedia/ads/Creatives/creative_repository/ormma/hide.png"
+              alt="hide"
+              onclick="hideAd();" />
+      </div>
+   </div>
+
+
+   <!-- The resized ad (resized state) -->
+   <div id='resizedad'>
+      <img src="http://i.imwx.com/RealMedia/ads/Creatives/creative_repository/ormma/300x250-solid.png"
+           alt="resized ad" />
+      <div id='smaller'>
+         <img src="http://i.imwx.com/RealMedia/ads/Creatives/creative_repository/ormma/resize-smaller.png"
+              alt="close"
+              onclick="resizeSmaller();" />
+      </div>
+      <div id='resizedata'>
+        State: <span id='resizestate'>STATE GOES HERE</span><br>
+        Screen: <span id='resizescreensize'>WIDTH X HEIGHT</span><br>
+        Max: <span id='resizemaxsize'>WIDTH X HEIGHT</span><br>
+        Size: <span id='resizesize'>WIDTH X HEIGHT</span><br><br><br><br>
+        Resize Text: <span id='resizetext'>RESIZE TEXT</span><br>
+      </div>
+   </div>
+
+   
+   <!-- The expanded ad (expanded state) -->
+   <div id='expandedad'>
+      <img src="http://i.imwx.com/RealMedia/ads/Creatives/creative_repository/ormma/300x250-solid.png"
+           alt="expanded ad" />
+      <div id='shrink'>
+         <img src="http://i.imwx.com/RealMedia/ads/Creatives/creative_repository/ormma/shrink.png"
+              alt="close"
+              onclick="shrinkAd();" />
+      </div>
+      <div id='expanddata'>
+        AD is Expanded.
+      </div>
+   </div>
+</div>

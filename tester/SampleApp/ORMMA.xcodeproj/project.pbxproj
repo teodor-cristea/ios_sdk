@@ -1,0 +1,437 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		DA1391691622E8D500E40785 /* MRAID.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DA1391681622E8D500E40785 /* MRAID.bundle */; };
+		DA1A4FC3160AFA80004E4108 /* TMLAdDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA1A4FC2160AFA80004E4108 /* TMLAdDetailViewController.m */; };
+		DA1A4FC7160B2AF3004E4108 /* TMLDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DA1A4FC6160B2AF3004E4108 /* TMLDBManager.m */; };
+		DA1A4FC9160B31FF004E4108 /* Ads.sql in Resources */ = {isa = PBXBuildFile; fileRef = DA1A4FC8160B31FF004E4108 /* Ads.sql */; };
+		DA1C8EB6161DA20D000BC27F /* libz.1.1.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DA1C8EB5161DA20D000BC27F /* libz.1.1.3.dylib */; };
+		DA3896611609A91B004F6F41 /* TMLDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA3896601609A91B004F6F41 /* TMLDetailController.m */; };
+		DA7CAAC31614458A00AE5A39 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DA7CAAC21614458A00AE5A39 /* libsqlite3.0.dylib */; };
+		DAC1596015B6BB0B00E1506E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAC1595F15B6BB0B00E1506E /* UIKit.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		DAC1596215B6BB0B00E1506E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAC1596115B6BB0B00E1506E /* Foundation.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		DAC1596415B6BB0B00E1506E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAC1596315B6BB0B00E1506E /* CoreGraphics.framework */; };
+		DAC1596A15B6BB0B00E1506E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DAC1596815B6BB0B00E1506E /* InfoPlist.strings */; };
+		DAC1596C15B6BB0B00E1506E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DAC1596B15B6BB0B00E1506E /* main.m */; };
+		DAC1597015B6BB0B00E1506E /* TMLAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DAC1596F15B6BB0B00E1506E /* TMLAppDelegate.m */; };
+		DAC1597C15B6C50D00E1506E /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAC1597B15B6C50D00E1506E /* CFNetwork.framework */; };
+		DAC1598015B6C52000E1506E /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAC1597F15B6C52000E1506E /* CoreFoundation.framework */; };
+		DAC1598215B6C52600E1506E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAC1598115B6C52600E1506E /* CoreLocation.framework */; };
+		DAC1598415B6C53000E1506E /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAC1598315B6C53000E1506E /* CoreMotion.framework */; };
+		DAC1598715B6C53800E1506E /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAC1598515B6C53800E1506E /* EventKit.framework */; };
+		DAC1598815B6C53800E1506E /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAC1598615B6C53800E1506E /* EventKitUI.framework */; };
+		DAC1598A15B6C54000E1506E /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAC1598915B6C54000E1506E /* MessageUI.framework */; };
+		DAC1598C15B6C54600E1506E /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAC1598B15B6C54600E1506E /* MobileCoreServices.framework */; };
+		DAC1598E15B6C54E00E1506E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAC1598D15B6C54E00E1506E /* QuartzCore.framework */; };
+		DAC1599015B6C55400E1506E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAC1598F15B6C55400E1506E /* SystemConfiguration.framework */; };
+		DAC159A715B8042600E1506E /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAC159A615B8042600E1506E /* MediaPlayer.framework */; };
+		DAC159B215B80ED300E1506E /* TMLViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DAC159B115B80ED300E1506E /* TMLViewController.m */; };
+		E51EF8B0167A2D84005B3D10 /* libEmediateSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E51EF8AF167A2D84005B3D10 /* libEmediateSDK.a */; };
+		E5C721B3169D67D7003DE0C0 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = E5C721B2169D67D7003DE0C0 /* Default.png */; };
+		E5C721B6169D67DB003DE0C0 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5C721B5169D67DB003DE0C0 /* Default-568h@2x.png */; };
+		E5C721B8169D67DD003DE0C0 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5C721B7169D67DD003DE0C0 /* Default@2x.png */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		DA1391681622E8D500E40785 /* MRAID.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MRAID.bundle; sourceTree = "<group>"; };
+		DA1A4FC1160AFA80004E4108 /* TMLAdDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMLAdDetailViewController.h; sourceTree = "<group>"; };
+		DA1A4FC2160AFA80004E4108 /* TMLAdDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMLAdDetailViewController.m; sourceTree = "<group>"; };
+		DA1A4FC5160B2AF3004E4108 /* TMLDBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMLDBManager.h; sourceTree = "<group>"; };
+		DA1A4FC6160B2AF3004E4108 /* TMLDBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMLDBManager.m; sourceTree = "<group>"; };
+		DA1A4FC8160B31FF004E4108 /* Ads.sql */ = {isa = PBXFileReference; lastKnownFileType = file; path = Ads.sql; sourceTree = "<group>"; };
+		DA1C8EB5161DA20D000BC27F /* libz.1.1.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.1.3.dylib; path = usr/lib/libz.1.1.3.dylib; sourceTree = SDKROOT; };
+		DA38965F1609A91B004F6F41 /* TMLDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMLDetailController.h; sourceTree = "<group>"; };
+		DA3896601609A91B004F6F41 /* TMLDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMLDetailController.m; sourceTree = "<group>"; };
+		DA7CAAC21614458A00AE5A39 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
+		DAC1595B15B6BB0B00E1506E /* EmediateAds.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EmediateAds.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DAC1595F15B6BB0B00E1506E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		DAC1596115B6BB0B00E1506E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		DAC1596315B6BB0B00E1506E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		DAC1596715B6BB0B00E1506E /* ORMMA-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ORMMA-Info.plist"; sourceTree = "<group>"; };
+		DAC1596915B6BB0B00E1506E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DAC1596B15B6BB0B00E1506E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		DAC1596D15B6BB0B00E1506E /* ORMMA-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ORMMA-Prefix.pch"; sourceTree = "<group>"; };
+		DAC1596E15B6BB0B00E1506E /* TMLAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TMLAppDelegate.h; sourceTree = "<group>"; };
+		DAC1596F15B6BB0B00E1506E /* TMLAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TMLAppDelegate.m; sourceTree = "<group>"; };
+		DAC1597B15B6C50D00E1506E /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		DAC1597D15B6C51300E1506E /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		DAC1597F15B6C52000E1506E /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		DAC1598115B6C52600E1506E /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		DAC1598315B6C53000E1506E /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		DAC1598515B6C53800E1506E /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
+		DAC1598615B6C53800E1506E /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
+		DAC1598915B6C54000E1506E /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		DAC1598B15B6C54600E1506E /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		DAC1598D15B6C54E00E1506E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		DAC1598F15B6C55400E1506E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		DAC159A615B8042600E1506E /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		DAC159B015B80ED300E1506E /* TMLViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMLViewController.h; sourceTree = "<group>"; };
+		DAC159B115B80ED300E1506E /* TMLViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMLViewController.m; sourceTree = "<group>"; };
+		E51EF8AF167A2D84005B3D10 /* libEmediateSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libEmediateSDK.a; sourceTree = "<group>"; };
+		E5744CAE167A104A0095703D /* EmediateAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmediateAdView.h; sourceTree = "<group>"; };
+		E5744CAF167A104A0095703D /* MRAIDAVPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRAIDAVPlayer.h; sourceTree = "<group>"; };
+		E5744CB0167A104A0095703D /* MRAIDView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRAIDView.h; sourceTree = "<group>"; };
+		E5744CB1167A104A0095703D /* MRAIDWebBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRAIDWebBrowserViewController.h; sourceTree = "<group>"; };
+		E5C721B2169D67D7003DE0C0 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		E5C721B5169D67DB003DE0C0 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		E5C721B7169D67DD003DE0C0 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DAC1595815B6BB0B00E1506E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DAC159A715B8042600E1506E /* MediaPlayer.framework in Frameworks */,
+				DAC1599015B6C55400E1506E /* SystemConfiguration.framework in Frameworks */,
+				DAC1598E15B6C54E00E1506E /* QuartzCore.framework in Frameworks */,
+				DAC1598C15B6C54600E1506E /* MobileCoreServices.framework in Frameworks */,
+				DAC1598A15B6C54000E1506E /* MessageUI.framework in Frameworks */,
+				DAC1598715B6C53800E1506E /* EventKit.framework in Frameworks */,
+				DAC1598815B6C53800E1506E /* EventKitUI.framework in Frameworks */,
+				DAC1598415B6C53000E1506E /* CoreMotion.framework in Frameworks */,
+				DAC1598215B6C52600E1506E /* CoreLocation.framework in Frameworks */,
+				DAC1598015B6C52000E1506E /* CoreFoundation.framework in Frameworks */,
+				DAC1597C15B6C50D00E1506E /* CFNetwork.framework in Frameworks */,
+				DAC1596015B6BB0B00E1506E /* UIKit.framework in Frameworks */,
+				DAC1596215B6BB0B00E1506E /* Foundation.framework in Frameworks */,
+				DAC1596415B6BB0B00E1506E /* CoreGraphics.framework in Frameworks */,
+				DA7CAAC31614458A00AE5A39 /* libsqlite3.0.dylib in Frameworks */,
+				DA1C8EB6161DA20D000BC27F /* libz.1.1.3.dylib in Frameworks */,
+				E51EF8B0167A2D84005B3D10 /* libEmediateSDK.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DA7CAAD916148D8700AE5A39 /* EmediateAds */ = {
+			isa = PBXGroup;
+			children = (
+				E51EF8AF167A2D84005B3D10 /* libEmediateSDK.a */,
+				E5744CAE167A104A0095703D /* EmediateAdView.h */,
+				E5744CAF167A104A0095703D /* MRAIDAVPlayer.h */,
+				E5744CB0167A104A0095703D /* MRAIDView.h */,
+				E5744CB1167A104A0095703D /* MRAIDWebBrowserViewController.h */,
+				DA1391681622E8D500E40785 /* MRAID.bundle */,
+			);
+			path = EmediateAds;
+			sourceTree = "<group>";
+		};
+		DAC1595015B6BB0B00E1506E = {
+			isa = PBXGroup;
+			children = (
+				E5C721B7169D67DD003DE0C0 /* Default@2x.png */,
+				E5C721B5169D67DB003DE0C0 /* Default-568h@2x.png */,
+				E5C721B2169D67D7003DE0C0 /* Default.png */,
+				DA7CAAD916148D8700AE5A39 /* EmediateAds */,
+				DAC1596515B6BB0B00E1506E /* ORMMA */,
+				DAC1595E15B6BB0B00E1506E /* Frameworks */,
+				DAC1595C15B6BB0B00E1506E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		DAC1595C15B6BB0B00E1506E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DAC1595B15B6BB0B00E1506E /* EmediateAds.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DAC1595E15B6BB0B00E1506E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DA7CAAC21614458A00AE5A39 /* libsqlite3.0.dylib */,
+				DA1C8EB5161DA20D000BC27F /* libz.1.1.3.dylib */,
+				DAC159A615B8042600E1506E /* MediaPlayer.framework */,
+				DAC1598F15B6C55400E1506E /* SystemConfiguration.framework */,
+				DAC1598D15B6C54E00E1506E /* QuartzCore.framework */,
+				DAC1598B15B6C54600E1506E /* MobileCoreServices.framework */,
+				DAC1598915B6C54000E1506E /* MessageUI.framework */,
+				DAC1598515B6C53800E1506E /* EventKit.framework */,
+				DAC1598615B6C53800E1506E /* EventKitUI.framework */,
+				DAC1598315B6C53000E1506E /* CoreMotion.framework */,
+				DAC1598115B6C52600E1506E /* CoreLocation.framework */,
+				DAC1597F15B6C52000E1506E /* CoreFoundation.framework */,
+				DAC1597D15B6C51300E1506E /* CoreData.framework */,
+				DAC1597B15B6C50D00E1506E /* CFNetwork.framework */,
+				DAC1595F15B6BB0B00E1506E /* UIKit.framework */,
+				DAC1596115B6BB0B00E1506E /* Foundation.framework */,
+				DAC1596315B6BB0B00E1506E /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DAC1596515B6BB0B00E1506E /* ORMMA */ = {
+			isa = PBXGroup;
+			children = (
+				DAC1596E15B6BB0B00E1506E /* TMLAppDelegate.h */,
+				DAC1596F15B6BB0B00E1506E /* TMLAppDelegate.m */,
+				DAC159B015B80ED300E1506E /* TMLViewController.h */,
+				DAC159B115B80ED300E1506E /* TMLViewController.m */,
+				DA38965F1609A91B004F6F41 /* TMLDetailController.h */,
+				DA3896601609A91B004F6F41 /* TMLDetailController.m */,
+				DA1A4FC1160AFA80004E4108 /* TMLAdDetailViewController.h */,
+				DA1A4FC2160AFA80004E4108 /* TMLAdDetailViewController.m */,
+				DA1A4FC5160B2AF3004E4108 /* TMLDBManager.h */,
+				DA1A4FC6160B2AF3004E4108 /* TMLDBManager.m */,
+				DAC1596615B6BB0B00E1506E /* Supporting Files */,
+			);
+			path = ORMMA;
+			sourceTree = "<group>";
+		};
+		DAC1596615B6BB0B00E1506E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DAC1596715B6BB0B00E1506E /* ORMMA-Info.plist */,
+				DA1A4FC8160B31FF004E4108 /* Ads.sql */,
+				DAC1596815B6BB0B00E1506E /* InfoPlist.strings */,
+				DAC1596B15B6BB0B00E1506E /* main.m */,
+				DAC1596D15B6BB0B00E1506E /* ORMMA-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DAC1595A15B6BB0B00E1506E /* ORMMA */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DAC1597315B6BB0B00E1506E /* Build configuration list for PBXNativeTarget "ORMMA" */;
+			buildPhases = (
+				DAC1595715B6BB0B00E1506E /* Sources */,
+				DAC1595815B6BB0B00E1506E /* Frameworks */,
+				DAC1595915B6BB0B00E1506E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ORMMA;
+			productName = ORMMA;
+			productReference = DAC1595B15B6BB0B00E1506E /* EmediateAds.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DAC1595215B6BB0B00E1506E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = TML;
+				LastUpgradeCheck = 0430;
+			};
+			buildConfigurationList = DAC1595515B6BB0B00E1506E /* Build configuration list for PBXProject "ORMMA" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = DAC1595015B6BB0B00E1506E;
+			productRefGroup = DAC1595C15B6BB0B00E1506E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DAC1595A15B6BB0B00E1506E /* ORMMA */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DAC1595915B6BB0B00E1506E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DAC1596A15B6BB0B00E1506E /* InfoPlist.strings in Resources */,
+				DA1A4FC9160B31FF004E4108 /* Ads.sql in Resources */,
+				DA1391691622E8D500E40785 /* MRAID.bundle in Resources */,
+				E5C721B3169D67D7003DE0C0 /* Default.png in Resources */,
+				E5C721B6169D67DB003DE0C0 /* Default-568h@2x.png in Resources */,
+				E5C721B8169D67DD003DE0C0 /* Default@2x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DAC1595715B6BB0B00E1506E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DAC1596C15B6BB0B00E1506E /* main.m in Sources */,
+				DAC1597015B6BB0B00E1506E /* TMLAppDelegate.m in Sources */,
+				DAC159B215B80ED300E1506E /* TMLViewController.m in Sources */,
+				DA3896611609A91B004F6F41 /* TMLDetailController.m in Sources */,
+				DA1A4FC3160AFA80004E4108 /* TMLAdDetailViewController.m in Sources */,
+				DA1A4FC7160B2AF3004E4108 /* TMLDBManager.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		DAC1596815B6BB0B00E1506E /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DAC1596915B6BB0B00E1506E /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		DAC1597115B6BB0B00E1506E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Raju Varthala (845CD86TT6)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Raju Varthala (845CD86TT6)";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				PROVISIONING_PROFILE = "E10D5346-65BB-48B8-A5AD-9976DD9D857C";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E10D5346-65BB-48B8-A5AD-9976DD9D857C";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "armv6 armv7 armv7s";
+			};
+			name = Debug;
+		};
+		DAC1597215B6BB0B00E1506E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Raju Varthala (845CD86TT6)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Raju Varthala (845CD86TT6)";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "E10D5346-65BB-48B8-A5AD-9976DD9D857C";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E10D5346-65BB-48B8-A5AD-9976DD9D857C";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "armv6 armv7 armv7s";
+			};
+			name = Release;
+		};
+		DAC1597415B6BB0B00E1506E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ORMMA/ORMMA-Prefix.pch";
+				HEADER_SEARCH_PATHS = "";
+				INFOPLIST_FILE = "ORMMA/ORMMA-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/EmediateAds\"",
+				);
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+					"-framework",
+					Foundation,
+					"-framework",
+					UIKit,
+				);
+				PRODUCT_NAME = EmediateAds;
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				SDKROOT = iphoneos;
+				USER_HEADER_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/**";
+				VALID_ARCHS = "armv7 armv7s";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		DAC1597515B6BB0B00E1506E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ORMMA/ORMMA-Prefix.pch";
+				HEADER_SEARCH_PATHS = "";
+				INFOPLIST_FILE = "ORMMA/ORMMA-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/EmediateAds\"",
+				);
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+					"-framework",
+					Foundation,
+					"-framework",
+					UIKit,
+				);
+				PRODUCT_NAME = EmediateAds;
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				SDKROOT = iphoneos;
+				USER_HEADER_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/**";
+				VALID_ARCHS = "armv7 armv7s";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DAC1595515B6BB0B00E1506E /* Build configuration list for PBXProject "ORMMA" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DAC1597115B6BB0B00E1506E /* Debug */,
+				DAC1597215B6BB0B00E1506E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DAC1597315B6BB0B00E1506E /* Build configuration list for PBXNativeTarget "ORMMA" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DAC1597415B6BB0B00E1506E /* Debug */,
+				DAC1597515B6BB0B00E1506E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DAC1595215B6BB0B00E1506E /* Project object */;
+}
