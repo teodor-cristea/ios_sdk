@@ -174,11 +174,11 @@
             
             time_t unix_time = time(nil);
             srandom(unix_time);
-            long r = (long)(100000000 + arc4random_uniform(900000000)); // precisely nine digits
+            long r = (long)arc4random_uniform(999999999); // max nine digits
             
             NSMutableString *eas_uid = [[[NSMutableString alloc] init] autorelease];
             [eas_uid appendFormat:@"%lu", unix_time];
-            [eas_uid appendFormat:@"%lu", r];
+            [eas_uid appendFormat:@"%09lu", r]; // pad to nine digits
             
             [[NSUserDefaults standardUserDefaults] setObject:eas_uid forKey:@"EAS_UID"];
             [[NSUserDefaults standardUserDefaults] synchronize];

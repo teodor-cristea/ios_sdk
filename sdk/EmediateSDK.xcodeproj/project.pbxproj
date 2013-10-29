@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		097A6AC2181FC5F600056456 /* ASIDataCompressor.h in Headers */ = {isa = PBXBuildFile; fileRef = 097A6ABE181FC5F600056456 /* ASIDataCompressor.h */; };
+		097A6AC3181FC5F600056456 /* ASIDataCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 097A6ABF181FC5F600056456 /* ASIDataCompressor.m */; };
+		097A6AC4181FC5F600056456 /* ASIDataDecompressor.h in Headers */ = {isa = PBXBuildFile; fileRef = 097A6AC0181FC5F600056456 /* ASIDataDecompressor.h */; };
+		097A6AC5181FC5F600056456 /* ASIDataDecompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 097A6AC1181FC5F600056456 /* ASIDataDecompressor.m */; };
 		37AF0C1D13611D2600363D4F /* MRAIDAVPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 37AF0C1B13611D2600363D4F /* MRAIDAVPlayer.h */; };
 		37AF0C1E13611D2600363D4F /* MRAIDAVPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 37AF0C1C13611D2600363D4F /* MRAIDAVPlayer.m */; };
 		37D07A6E13A6BE5A00CE0E60 /* mraid_bridge.js in Resources */ = {isa = PBXBuildFile; fileRef = 37F360C31371FDB1002DCF6B /* mraid_bridge.js */; };
@@ -148,6 +152,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		097A6ABE181FC5F600056456 /* ASIDataCompressor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIDataCompressor.h; sourceTree = "<group>"; };
+		097A6ABF181FC5F600056456 /* ASIDataCompressor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIDataCompressor.m; sourceTree = "<group>"; };
+		097A6AC0181FC5F600056456 /* ASIDataDecompressor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIDataDecompressor.h; sourceTree = "<group>"; };
+		097A6AC1181FC5F600056456 /* ASIDataDecompressor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIDataDecompressor.m; sourceTree = "<group>"; };
 		37AF0C1B13611D2600363D4F /* MRAIDAVPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRAIDAVPlayer.h; sourceTree = "<group>"; };
 		37AF0C1C13611D2600363D4F /* MRAIDAVPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRAIDAVPlayer.m; sourceTree = "<group>"; };
 		37AF0C30136209A300363D4F /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -504,6 +512,10 @@
 		FAD28BC412381B2A00562D0B /* ASI HTTP Request */ = {
 			isa = PBXGroup;
 			children = (
+				097A6ABE181FC5F600056456 /* ASIDataCompressor.h */,
+				097A6ABF181FC5F600056456 /* ASIDataCompressor.m */,
+				097A6AC0181FC5F600056456 /* ASIDataDecompressor.h */,
+				097A6AC1181FC5F600056456 /* ASIDataDecompressor.m */,
 				FAD28BC512381B2A00562D0B /* ASI Http Request - LICENSE */,
 				FAD28BC612381B2A00562D0B /* ASIAuthenticationDialog.h */,
 				FAD28BC712381B2A00562D0B /* ASIAuthenticationDialog.m */,
@@ -589,6 +601,7 @@
 				FAD28BEB12381B2A00562D0B /* MRAIDView.h in Headers */,
 				FAD28BED12381B2A00562D0B /* ASIAuthenticationDialog.h in Headers */,
 				FAD28BEF12381B2A00562D0B /* ASICacheDelegate.h in Headers */,
+				097A6AC2181FC5F600056456 /* ASIDataCompressor.h in Headers */,
 				FAD28BF012381B2A00562D0B /* ASIDownloadCache.h in Headers */,
 				FAD28BF212381B2A00562D0B /* ASIFormDataRequest.h in Headers */,
 				FAD28BF412381B2A00562D0B /* ASIHTTPRequest.h in Headers */,
@@ -602,6 +615,7 @@
 				FA7756B91263598300CC8838 /* AsyncSocket.h in Headers */,
 				FA7756BB1263598300CC8838 /* DDData.h in Headers */,
 				FA7756BD1263598300CC8838 /* DDNumber.h in Headers */,
+				097A6AC4181FC5F600056456 /* ASIDataDecompressor.h in Headers */,
 				FA7756BF1263598300CC8838 /* DDRange.h in Headers */,
 				FA7756C11263598300CC8838 /* HTTPAsyncFileResponse.h in Headers */,
 				FA7756C31263598300CC8838 /* HTTPAuthenticationRequest.h in Headers */,
@@ -768,6 +782,7 @@
 				FAD28BEA12381B2A00562D0B /* MRAIDJavascriptBridge.m in Sources */,
 				FAD28BEC12381B2A00562D0B /* MRAIDView.m in Sources */,
 				FAD28BEE12381B2A00562D0B /* ASIAuthenticationDialog.m in Sources */,
+				097A6AC5181FC5F600056456 /* ASIDataDecompressor.m in Sources */,
 				FAD28BF112381B2A00562D0B /* ASIDownloadCache.m in Sources */,
 				FAD28BF312381B2A00562D0B /* ASIFormDataRequest.m in Sources */,
 				FAD28BF512381B2A00562D0B /* ASIHTTPRequest.m in Sources */,
@@ -793,6 +808,7 @@
 				FAD233D7126900A800921D13 /* MRAIDDataAccessLayer.m in Sources */,
 				FAD3FACD126CAEE700468F35 /* MRAIDStoreAndForwardRequest.m in Sources */,
 				FACA4447128765CF00261A12 /* UIColor-Expanded.m in Sources */,
+				097A6AC3181FC5F600056456 /* ASIDataCompressor.m in Sources */,
 				FAE2E8ED128C4D6200A1B1ED /* MRAIDWebBrowserViewController.m in Sources */,
 				FAD723A5129190B7001D702B /* UIDevice-MRAID.m in Sources */,
 				37AF0C1E13611D2600363D4F /* MRAIDAVPlayer.m in Sources */,
@@ -858,13 +874,13 @@
 		1DEB922308733DC00010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
 				OTHER_LDFLAGS = (
 					"-all_load",
 					"-ObjC",
@@ -878,12 +894,12 @@
 		1DEB922408733DC00010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
 				OTHER_LDFLAGS = (
 					"-all_load",
 					"-ObjC",
@@ -915,6 +931,7 @@
 					AppKit,
 				);
 				PRODUCT_NAME = MRAID;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				WRAPPER_EXTENSION = bundle;
 			};
 			name = Debug;
@@ -939,6 +956,7 @@
 					AppKit,
 				);
 				PRODUCT_NAME = MRAID;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				WRAPPER_EXTENSION = bundle;
 				ZERO_LINK = NO;
 			};

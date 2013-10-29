@@ -11,6 +11,7 @@
 #import <EventKit/EventKit.h>
 #import "MRAIDWebBrowserViewController.h"
 #import "MRAIDAVPlayer.h"
+#import <MapKit/MapKit.h>
 
 @class MRAIDJavascriptBridge;
 @class ORMMALocalServer;
@@ -31,7 +32,8 @@ typedef enum MRAIDViewStateEnum
 @interface MRAIDView : UIView <MFMailComposeViewControllerDelegate,
 							   MFMessageComposeViewControllerDelegate,
 							   MRAIDWebBrowserViewControllerDelegate,
-								MRAIDAVPlayerDelegate>
+								MRAIDAVPlayerDelegate,
+                                CLLocationManagerDelegate>
 {
 @private
 	UIDevice *m_currentDevice;
@@ -84,6 +86,10 @@ typedef enum MRAIDViewStateEnum
     // The MRAIDView frame in the expanded state
     CGRect m_expandedFrame;
     BOOL m_bIsDisplayed;
+    
+    CLLocationManager* locationManager;
+@protected
+    CLLocation*         userLocation;
 }
 @property( nonatomic, assign ) id<MRAIDViewDelegate> mraidDelegate;
 @property( nonatomic, copy ) NSString *htmlStub;
@@ -93,15 +99,10 @@ typedef enum MRAIDViewStateEnum
 @property( nonatomic, assign ) CGSize maxSize;
 @property( nonatomic, assign ) BOOL allowLocationServices;
 @property( nonatomic, assign, readonly ) BOOL isMRAIDAd;
+@property( nonatomic, assign ) CLLocation* userLocation;
 
-// load creative
 - (void)loadCreative:(NSURL *)url;
 
-//Begin: Added for customization by Raju on 26-July-2012
-- (void)loadCreative:(NSURL *)url 
-        withUsername:(NSString *)username 
-         andPassword:(NSString *)password;
-//End: Added for customization by Raju on 26-July-2012         
 
 - (void)loadHTMLCreative:(NSString *)htmlFragment
 			 creativeURL:(NSURL *)url;
@@ -226,7 +227,7 @@ typedef enum MRAIDViewStateEnum
 - (void)showURLFullScreen:(NSURL *)url
 			   sourceView:(UIView *)view;
 
-- (void)emailNotSetupForAd:(MRAIDView *)adView;
+//- (void)emailNotSetupForAd:(MRAIDView *)adView;
 
 
 @end

@@ -282,6 +282,8 @@ NSString * const kMRAIDLocalServerResourceType = @"resource";
     NSLog(@"cacheURL url = %@",url);
 	// this should retrieve the data from the specified URL
 	ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
+    [request setUserAgentString:[ASIHTTPRequest defaultUserAgentString]];
+    NSLog(@"UA String set to %@",[request userAgentString]);
 	request.delegate = self;
 	request.userInfo = userInfo;
 	[request startAsynchronous];
