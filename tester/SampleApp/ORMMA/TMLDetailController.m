@@ -37,8 +37,9 @@
   self.navigationItem.rightBarButtonItem = doneButton;
   [doneButton release];
   doneButton = nil;
-
-  adNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 100, 33)];
+   
+    NSLog(@"Creating name label");
+  adNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 80, 100, 33)];
   [adNameLabel setBackgroundColor:[UIColor clearColor]];
   [adNameLabel setText:@"Ad Name"];
   [adNameLabel setTextColor:[UIColor grayColor]];
@@ -49,35 +50,40 @@
   {
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
     {
-      [adNameField setFrame:CGRectMake(20, 30, 440, 33)];
+      NSLog(@"iPhone");
+      [adNameField setFrame:CGRectMake(20, 110, 440, 33)];
     }
     else
     {
-      [adNameField setFrame:CGRectMake(20, 30, 984, 33)];
+      NSLog(@"iPad");
+      [adNameField setFrame:CGRectMake(20, 110, 984, 33)];
     }
   }
   else
   {
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
     {
-      [adNameField setFrame:CGRectMake(20, 30, 280, 33)];
+        NSLog(@"iPhone");
+      [adNameField setFrame:CGRectMake(20, 110, 280, 33)];
     }
     else
     {
-      [adNameField setFrame:CGRectMake(20, 30, 728, 33)];
+        NSLog(@"iPad");
+      [adNameField setFrame:CGRectMake(20, 110, 728, 33)];
     }
   }
   [adNameField setBorderStyle:UITextBorderStyleRoundedRect];
   [adNameField setDelegate:self];
+  [adNameField setText:@"Sample Ad Name"];
   [adNameField setAutocapitalizationType:UITextAutocapitalizationTypeNone];
   [adNameField setAutocorrectionType:UITextAutocorrectionTypeNo];
   [adNameField setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
   [adNameField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];  
   [self.view addSubview:adNameField];
   
-  baseURLLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 70, 100, 33)];
+  baseURLLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 140, 100, 33)];
   [baseURLLabel setBackgroundColor:[UIColor clearColor]];
-  [baseURLLabel setText:@"Base URL"];
+  [baseURLLabel setText:@"Base URL:"];
   [baseURLLabel setTextColor:[UIColor grayColor]];
   [self.view addSubview:baseURLLabel];
   
@@ -86,22 +92,22 @@
   {
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
     {
-      [baseURLField setFrame:CGRectMake(20, 100, 440, 33)];
+      [baseURLField setFrame:CGRectMake(20, 170, 440, 33)];
     }
     else
     {
-      [baseURLField setFrame:CGRectMake(20, 100, 984, 33)];
+      [baseURLField setFrame:CGRectMake(20, 170, 984, 33)];
     }
   }
   else
   {
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
     {
-      [baseURLField setFrame:CGRectMake(20, 100, 280, 33)];
+      [baseURLField setFrame:CGRectMake(20, 170, 280, 33)];
     }
     else
     {
-      [baseURLField setFrame:CGRectMake(20, 100, 728, 33)];
+      [baseURLField setFrame:CGRectMake(20, 170, 728, 33)];
     }
   }
   [baseURLField setBorderStyle:UITextBorderStyleRoundedRect];
@@ -113,7 +119,7 @@
   [baseURLField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];  
   [self.view addSubview:baseURLField];
 
-  paramsLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 140, 100, 33)];
+  paramsLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 210, 100, 33)];
   [paramsLabel setBackgroundColor:[UIColor clearColor]];
   [paramsLabel setText:@"Parameters"];
   [paramsLabel setTextColor:[UIColor grayColor]];
@@ -124,22 +130,22 @@
   {
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
     {
-      [parametersField setFrame:CGRectMake(20, 170, 440, 33)];
+      [parametersField setFrame:CGRectMake(20, 240, 440, 33)];
     }
     else
     {
-      [parametersField setFrame:CGRectMake(20, 170, 984, 33)];
+      [parametersField setFrame:CGRectMake(20, 240, 984, 33)];
     }
   }
   else
   {
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
     {
-      [parametersField setFrame:CGRectMake(20, 170, 280, 33)];
+      [parametersField setFrame:CGRectMake(20, 240, 280, 33)];
     }
     else
     {
-      [parametersField setFrame:CGRectMake(20, 170, 728, 33)];
+      [parametersField setFrame:CGRectMake(20, 240, 728, 33)];
     }
   }
   [parametersField setBorderStyle:UITextBorderStyleRoundedRect];
@@ -150,7 +156,7 @@
   [parametersField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];  
   [self.view addSubview:parametersField];
   
-  hintLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 210, 280, 33)];
+  hintLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 310, 280, 33)];
   [hintLabel setBackgroundColor:[UIColor clearColor]];
   [hintLabel setText:@"Eg: cu=512;cre=mu;target=_blank"];
   [hintLabel setTextColor:[UIColor grayColor]];
