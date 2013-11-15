@@ -143,7 +143,17 @@ NSString * const kMRAIDLocalServerResourceType = @"resource";
 	  withIntermediateDirectories:YES 
 					   attributes:nil 
 							error:NULL];
-		
+        
+        // listen for device events to properly start/stop our server (socket dies when app goes inactive)
+		NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+		[nc addObserver:self
+			   selector:@selector(handleDidBecomeActiveNotification:)
+				   name:UIApplicationDidBecomeActiveNotification
+				 object:nil];
+		[nc addObserver:self
+			   selector:@selector(handleDidResignActiveNotification:)
+				   name:UIApplicationWillResignActiveNotification
+				 object:nil];
 	}
 	return self;
 }
@@ -151,6 +161,9 @@ NSString * const kMRAIDLocalServerResourceType = @"resource";
 
 - (void)dealloc
 {
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+	[nc removeObserver:self];
+
 	// release our internals
 	[m_htmlStub release], m_htmlStub = nil;
 	
@@ -590,7 +603,31 @@ NSString * const kMRAIDLocalServerResourceType = @"resource";
 											   repeats:NO] retain];
 }
 
+#pragma mark -
+#pragma mark Notification Handlers
 
+- (void)handleDidBecomeActiveNotification:(NSNotification *)notification
+{
+	@synchronized( self )
+	{
+		// start server
+        NSError *error = nil;
+		[m_server start:&error];
+        
+        NSLog(@"Server started");
+	}
+}
+
+- (void)handleDidResignActiveNotification:(NSNotification *)notification
+{
+	@synchronized( self )
+	{
+		// shutdown server
+		[m_server stop];
+        
+        NSLog(@"Server stopped");
+	}
+}
 
 #pragma mark -
 #pragma mark Utility
