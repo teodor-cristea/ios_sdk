@@ -11,6 +11,7 @@
 //  See: http://developer.apple.com/samplecode/ImageClient/listing37.html
 
 #import "ASIHTTPRequest.h"
+#import "UIDevice-Hardware.h"
 
 #if TARGET_OS_IPHONE
 #import "Reachability.h"
@@ -4378,6 +4379,7 @@ static NSOperationQueue *sharedQueue = nil;
 
 			NSBundle *bundle = [NSBundle bundleForClass:[self class]];
 
+            /*
 			// Attempt to find a name for this application
 			NSString *appName = [bundle objectForInfoDictionaryKey:@"CFBundleDisplayName"];
 			if (!appName) {
@@ -4404,7 +4406,10 @@ static NSOperationQueue *sharedQueue = nil;
 			} else {
 				appVersion = (marketingVersionNumber ? marketingVersionNumber : developmentVersionNumber);
 			}
-
+             */
+            NSString *sdkName = @"Emediate SDK";
+            NSString *sdkVersion = [bundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+            
 			NSString *deviceName;
 			NSString *OSName;
 			NSString *OSVersion;
@@ -4412,7 +4417,7 @@ static NSOperationQueue *sharedQueue = nil;
 
 			#if TARGET_OS_IPHONE
 				UIDevice *device = [UIDevice currentDevice];
-				deviceName = [device model];
+				deviceName = [device platformString];
 				OSName = [device systemName];
 				OSVersion = [device systemVersion];
 
@@ -4433,8 +4438,8 @@ static NSOperationQueue *sharedQueue = nil;
 				OSVersion = [NSString stringWithFormat:@"%u.%u.%u", versionMajor, versionMinor, versionBugFix];
 			#endif
 
-			// Takes the form "My Application 1.0 (Macintosh; Mac OS X 10.5.7; en_GB)"
-			[self setDefaultUserAgentString:[NSString stringWithFormat:@"%@ %@ (%@; %@ %@; %@)", appName, appVersion, deviceName, OSName, OSVersion, locale]];	
+			// Takes the form "Emediate SDK 1.0/iPhone OS 6.1;iPhone Simulator/sv_SE/"
+			[self setDefaultUserAgentString:[NSString stringWithFormat:@"%@ %@/%@ %@;%@/%@/)", sdkName, sdkVersion, OSName, OSVersion, deviceName, locale]];
 		}
 		return [[defaultUserAgent retain] autorelease];
 	}
