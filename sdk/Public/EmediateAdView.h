@@ -11,7 +11,7 @@
 
 @interface EmediateAdView : MRAIDView
 {
-  NSInteger refreshRate; //Rate at which advertisement changes
+  NSInteger refreshRate; //Rate at which advertisement changes. If "0" or negative, means "no refresh". Defaults to 60 sec.
   NSDictionary *parameters; //Parameters of URL to get content unit.
   NSTimer *refreshTimer; //Refresh timer which triggers at the specified refreshRate time regularly.
 }

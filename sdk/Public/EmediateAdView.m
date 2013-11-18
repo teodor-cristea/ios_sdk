@@ -25,7 +25,7 @@
     {
         // Initialization code
         parameters = nil;
-        refreshRate = -1;
+        refreshRate = 60;
     }
     return self;
 }
@@ -201,7 +201,7 @@
 
 - (void)fireAdWillShow
 {
-    if (!refreshTimer)
+    if (!refreshTimer && self.refreshRate > 0)
     {
         refreshTimer = [NSTimer scheduledTimerWithTimeInterval:self.refreshRate target:self selector:@selector(refreshCreative) userInfo:nil repeats:YES];
         [refreshTimer retain];
