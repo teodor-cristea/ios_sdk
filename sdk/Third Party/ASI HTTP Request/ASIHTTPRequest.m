@@ -4377,8 +4377,6 @@ static NSOperationQueue *sharedQueue = nil;
 
 		if (!defaultUserAgent) {
 
-			NSBundle *bundle = [NSBundle bundleForClass:[self class]];
-
             /*
 			// Attempt to find a name for this application
 			NSString *appName = [bundle objectForInfoDictionaryKey:@"CFBundleDisplayName"];
@@ -4408,7 +4406,7 @@ static NSOperationQueue *sharedQueue = nil;
 			}
              */
             NSString *sdkName = @"Emediate SDK";
-            NSString *sdkVersion = [bundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+            NSString *sdkVersion = @"1.0";//[bundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
             
 			NSString *deviceName;
 			NSString *OSName;
