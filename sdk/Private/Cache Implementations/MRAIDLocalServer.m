@@ -8,7 +8,9 @@
 
 #import "MRAIDLocalServer.h"
 #import "DDData.h"
-
+#import "NSString+MD5Addition.h"
+#import "Reachability.h"
+#include <sys/time.h>
 
 @interface MRAIDLocalServer ()
 
@@ -47,10 +49,12 @@ NSString * const kAdContentToken    = @"<!--AD-CONTENT-->";
 NSString * const kInjectedContentToken    = @"<!-- INJECTED-CONTENT -->";
 
 NSString * const kMRAIDLocalServerWebRoot = @"mraid-web-root";
+NSString * const kMRAIDLocalServerWebActiveRoot = @"mraid-web-active-root";
 NSString * const kMRAIDLocalServerDelegateKey = @"delegate";
 NSString * const kMRAIDLocalServerTypeKey = @"type";
 NSString * const kMRAIDLocalServerPathKey = @"path";
 NSString * const kMRAIDLocalServerCreativeIdKey = @"id";
+NSString * const kMRAIDLocalServerCampaignBaseURLKey = @"campaignBaseURL";
 
 NSString * const kMRAIDLocalServerCreativeType = @"creative";
 NSString * const kMRAIDLocalServerResourceType = @"resource";
@@ -61,6 +65,7 @@ NSString * const kMRAIDLocalServerResourceType = @"resource";
 #pragma mark Properties
 
 @dynamic cacheRoot;
+@dynamic cacheActiveRoot;
 @synthesize htmlStub = m_htmlStub;
 
 
@@ -133,17 +138,22 @@ NSString * const kMRAIDLocalServerResourceType = @"resource";
 		// setup our Internal HTTP Server
 		NSError *error = nil;
 		m_server = [[HTTPServer alloc] init];
-		NSURL *url = [NSURL fileURLWithPath:[self cacheRoot]];
+		NSURL *url = [NSURL fileURLWithPath:[self cacheActiveRoot]];
 		[m_server setDocumentRoot:url];
 		[m_server start:&error];
-		
-		// make sure the root path exists
+		      
+		// make sure the root paths exist
 		NSFileManager *fm = [NSFileManager defaultManager];
 		[fm createDirectoryAtPath:self.cacheRoot 
 	  withIntermediateDirectories:YES 
 					   attributes:nil 
 							error:NULL];
-        
+
+        [fm createDirectoryAtPath:self.cacheActiveRoot
+	  withIntermediateDirectories:YES
+					   attributes:nil
+							error:NULL];
+
         // listen for device events to properly start/stop our server (socket dies when app goes inactive)
 		NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 		[nc addObserver:self
@@ -170,6 +180,12 @@ NSString * const kMRAIDLocalServerResourceType = @"resource";
 	// shutdown our server
 	[m_server stop];
 	[m_server release], m_server = nil;
+    
+    // cleanup network queue
+    [m_queue cancelAllOperations];
+    [m_queue release];
+    m_queue = nil;
+    
 	[super dealloc];
 }
 
@@ -183,6 +199,10 @@ NSString * const kMRAIDLocalServerResourceType = @"resource";
 	return [MRAIDLocalServer rootDirectory];
 }
 
+- (NSString *)cacheActiveRoot
+{
+    return [MRAIDLocalServer rootActiveDirectory];
+}
 
 + (NSString *)rootDirectory
 {
@@ -196,7 +216,17 @@ NSString * const kMRAIDLocalServerResourceType = @"resource";
 	return path;
 }
 
-
++ (NSString *)rootActiveDirectory
+{
+    // determine the root where our active cache will be stored
+    NSArray *systemPaths = NSSearchPathForDirectoriesInDomains( NSCachesDirectory, NSUserDomainMask, YES );
+    NSString *basePath = [systemPaths objectAtIndex:0];
+	
+	// add the root
+	NSString *path = [basePath stringByAppendingPathComponent:kMRAIDLocalServerWebActiveRoot];
+	
+	return path;
+}
 
 #pragma mark -
 #pragma mark Cache Management
@@ -285,26 +315,124 @@ NSString * const kMRAIDLocalServerResourceType = @"resource";
 
 
 - (void)cacheURL:(NSURL *)url
-	withDelegate:(id<MRAIDLocalServerDelegate>)delegate;
+     fromCampaignURL:(NSURL *)baseURL
+	withDelegate:(id<MRAIDLocalServerDelegate>)delegate
+ andPreloadCount:(NSInteger)count;
 {
-	// setup our dictionary for the callback
-	NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:delegate, kMRAIDLocalServerDelegateKey,
-																		kMRAIDLocalServerCreativeType, kMRAIDLocalServerTypeKey,
-																		nil];
-	
-    NSLog(@"cacheURL url = %@",url);
-	// this should retrieve the data from the specified URL
-	ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
-    [request setUserAgentString:[ASIHTTPRequest defaultUserAgentString]];
-    NSLog(@"UA String set to %@",[request userAgentString]);
-	request.delegate = self;
-	request.userInfo = userInfo;
-	[request startAsynchronous];
+    // first check cache, it may have already been pre-loaded
+    NSString *nextCreativeId = [MRAIDLocalServer nextCachedCreativeForCampaignBaseURL:baseURL];
+    if (nextCreativeId && [nextCreativeId length])
+    {
+        // there is something in cache, use it
+        // move cached creative to active root directory
+        NSLog( @"Creative found in cache: %@", nextCreativeId );
+        NSURL *creativeURL = [self moveCachedCreativeToActiveDirectoryForCampaignBaseURL:baseURL
+                                                                                  withId:nextCreativeId
+                                                                              andBaseURL:url];
+        
+        // notify the delegate to show this creative
+        [delegate showCachedCreative:url
+                               onURL:creativeURL
+                              withId:nextCreativeId];
+        
+        return;
+    }
+    
+    // check reachability status for the offline mode
+    // at this point cache is empty
+    if ([[Reachability reachabilityForInternetConnection] currentReachabilityStatus] == kNotReachable)
+    {
+        // no Internet connection
+        // make sure we poll last used ad from active root directory
+        NSLog(@"No internet connection and the cache is empty");
+        
+        NSString *activeCreativeId = [MRAIDLocalServer cachedActiveCreativeForCampaignBaseURL:baseURL];
+        if (activeCreativeId && [activeCreativeId length])
+        {
+            NSLog(@"Displaying current active creative with id: %@", activeCreativeId);
+            NSString *urlString = [NSString stringWithFormat:@"http://localhost:%i/%@/%@/index.html", [m_server port],
+                                   [[baseURL absoluteString] stringFromMD5], activeCreativeId];
+
+            NSURL *creativeURL = [NSURL URLWithString:urlString];
+            
+            // notify the delegate to show this creative
+            [delegate showCachedCreative:url
+                                   onURL:creativeURL
+                                  withId:nextCreativeId];
+
+            return;
+        }
+    }
+    
+    // second check if network queue doesn't already have tasks to execute
+    if (![m_queue requestsCount])
+    {
+        // queue is empty, proceed normally through network queue to kick-off preload
+        // for a new batch
+        
+        // reset current creative for whom it may concern
+        if ([delegate respondsToSelector:@selector(currentCachedCreativeChanged:)])
+        {
+            // this means the cache has been depleted
+            [delegate currentCachedCreativeChanged:nil];
+        }
+        
+        // setup our dictionary for the callback
+        NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:delegate, kMRAIDLocalServerDelegateKey,
+                                  kMRAIDLocalServerCreativeType, kMRAIDLocalServerTypeKey,
+                                  baseURL, kMRAIDLocalServerCampaignBaseURLKey,
+                                  nil];
+        
+        // stop anything already in the queue before removing it
+        [m_queue cancelAllOperations];
+        [m_queue release];
+        m_queue = nil;
+        
+        // setup network queue for preload
+        m_queue = [[ASINetworkQueue queue] retain];
+        [m_queue setDelegate:self];
+        [m_queue setMaxConcurrentOperationCount:1];
+        [m_queue setQueueDidFinishSelector:@selector(queueFinished:)];
+        
+        // create operations (requests) and add dependencies between them so that they are serialized in a FIFO manner
+        NSMutableArray *ops = [NSMutableArray arrayWithCapacity:count];
+        
+        // handle count as additional requests to be made except the first one (which is loaded the same way when preload is disabled)
+        NSInteger maxCount = count;
+        if (count <= 0)
+            maxCount = 1;
+        else
+            maxCount = count+1;
+        
+        for (int i = 0; i < maxCount; i++)
+        {
+            NSLog(@"cacheURL url (%d) = %@", i, url);
+            // this should retrieve the data from the specified URL
+            ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
+            [request setUserAgentString:[ASIHTTPRequest defaultUserAgentString]];
+            NSLog(@"UA String set to %@",[request userAgentString]);
+            request.delegate = self;
+            request.userInfo = userInfo;
+            //[request startAsynchronous];
+            
+            if (i > 0)
+            {
+                ASIHTTPRequest *previousRequest = [ops lastObject];
+                [request addDependency:previousRequest];
+            }
+            [ops addObject:request];
+            [m_queue addOperation:request];
+        }
+        
+        // kick-off preload
+        [m_queue go];
+    }
 }
 
 
 - (void)cacheHTML:(NSString *)baseHtml
 		  baseURL:(NSURL *)baseURL
+      campaignURL:(NSURL *)campaignURL
 	 withDelegate:(id<MRAIDLocalServerDelegate>)delegate;
 {
 	NSLog( @"Caching HTML" );
@@ -323,24 +451,39 @@ NSString * const kMRAIDLocalServerResourceType = @"resource";
 		html = [self processHTMLStubUsingFragment:baseHtml
 										 delegate:delegate];
 	}
+    
+    // determine the hash for this campaign
+    NSString *campaignRoot = [[campaignURL absoluteString] stringFromMD5];
+    NSString *campaignPath = [self.cacheRoot stringByAppendingPathComponent:campaignRoot];
+    
+    // see if we already have this campaign cached
+	NSFileManager *fm = [NSFileManager defaultManager];
+	if (![fm fileExistsAtPath:campaignPath])
+	{
+        // we don't have it yet
+        // make sure the directory exists
+        [fm createDirectoryAtPath:campaignPath
+      withIntermediateDirectories:YES
+                       attributes:nil
+                            error:NULL];
+	}
 
 	// determine the hash for this creative
 	NSString *creativeId = [[[html dataUsingEncoding:NSUTF8StringEncoding] md5Digest] hexStringValue];
-	NSString *path = [self.cacheRoot stringByAppendingPathComponent:creativeId];
+	NSString *path = [campaignPath stringByAppendingPathComponent:creativeId];
 	NSString *fqpn = [path stringByAppendingPathComponent:@"index.html"];
 	
 	// see if we already have this creative cached
-	NSFileManager *fm = [NSFileManager defaultManager];
 	if ( ![fm fileExistsAtPath:fqpn] )
 	{
 		// we don't have it yet
 		// make sure the directory exists
-		[fm createDirectoryAtPath:path 
-	  withIntermediateDirectories:YES 
-					   attributes:nil 
+		[fm createDirectoryAtPath:path
+	  withIntermediateDirectories:YES
+					   attributes:nil
 							error:NULL];
 	}
-
+    
 	// update our copy on disk
 	NSData *data = [html dataUsingEncoding:NSUTF8StringEncoding];
 	[data writeToFile:fqpn
@@ -348,13 +491,13 @@ NSString * const kMRAIDLocalServerResourceType = @"resource";
 	
 	// update our database
 	NSLog( @"Update cache database" );
-	[m_dal cacheCreative:creativeId 
+	[m_dal cacheCreative:creativeId
 				  forURL:baseURL];
 	
 	// Now, notify the delegate that we've saved the resource
 	NSLog( @"Notify delegate that object was cached" );
-	NSString *urlString = [NSString stringWithFormat:@"http://localhost:%i/%@/index.html", [m_server port], 
-																						   creativeId];
+	NSString *urlString = [NSString stringWithFormat:@"http://localhost:%i/%@/%@/index.html", [m_server port],
+                           campaignRoot, creativeId];
 	NSURL *url = [NSURL URLWithString:urlString];
 	[delegate cachedCreative:baseURL
 					   onURL:url
@@ -363,6 +506,147 @@ NSString * const kMRAIDLocalServerResourceType = @"resource";
 }
 
 
++ (NSString *)nextCachedCreativeForCampaignBaseURL:(NSURL *)campaignRootURL
+{
+	// walk the cache directory for the designated campaign, and return creative to be displayed next
+	NSError *error = nil;
+	NSFileManager *fm = [NSFileManager defaultManager];
+	NSString *root = [[self rootDirectory] stringByAppendingPathComponent:[[campaignRootURL absoluteString] stringFromMD5]];
+    
+	NSArray *cached = [fm contentsOfDirectoryAtPath:root
+											  error:&error];
+	NSLog( @"Check Cache at %@", root );
+    NSString *nextCreative = nil;
+    if ([cached count])
+    {
+        // sort content paths based on modification date older first (FIFO)
+        NSArray *cachedSorted = [cached sortedArrayUsingComparator:^NSComparisonResult(NSString *path1, NSString *path2)
+                                 {
+                                     NSDictionary *first_properties  = [fm attributesOfItemAtPath:path1 error:nil];
+                                     NSDate *first                   = [first_properties  objectForKey:NSFileModificationDate];
+                                     NSDictionary *second_properties = [fm attributesOfItemAtPath:path2 error:nil];
+                                     NSDate *second                  = [second_properties objectForKey:NSFileModificationDate];
+                                     return [second compare:first];
+                                 }];
+        NSLog(@"Cache contents: %@", cachedSorted);
+        
+        // get first creative path being the oldest therefore the next to be displayed
+        nextCreative = [cachedSorted objectAtIndex:0];
+    }
+    return nextCreative;
+}
+
+
++ (NSString *)cachedActiveCreativeForCampaignBaseURL:(NSURL *)campaignRootURL
+{
+	// browse the cache directory for the designated campaign
+    // and return creative that was / is last displayed
+	NSError *error = nil;
+	NSFileManager *fm = [NSFileManager defaultManager];
+	NSString *root = [[self rootActiveDirectory] stringByAppendingPathComponent:[[campaignRootURL absoluteString] stringFromMD5]];
+    
+	NSArray *cached = [fm contentsOfDirectoryAtPath:root
+											  error:&error];
+	NSLog( @"Check Active Cache at %@", root );
+    NSString *creative = nil;
+    if ([cached count])
+    {
+        // get creative id
+        creative = [cached lastObject];
+    }
+    return creative;
+}
+
+
+- (NSURL *)moveCachedCreativeToActiveDirectoryForCampaignBaseURL:(NSURL *)campaignRootURL
+                                                       withId:(NSString *)creativeId
+                                                   andBaseURL:(NSURL *)url
+{
+    NSError *error = nil;
+    NSURL *creativeURL = nil;
+	NSFileManager *fm = [NSFileManager defaultManager];
+    NSString *campaignPathComponent = [[campaignRootURL absoluteString] stringFromMD5];
+    NSString *root = [MRAIDLocalServer rootActiveDirectory];
+    NSString *activeRootCampaign = [root stringByAppendingPathComponent:campaignPathComponent];
+	NSString *source = [[[MRAIDLocalServer rootDirectory] stringByAppendingPathComponent:campaignPathComponent] stringByAppendingPathComponent:creativeId];
+    NSString *destination = [activeRootCampaign stringByAppendingPathComponent:creativeId];
+    
+    // see if root exists
+	if (![fm fileExistsAtPath:root])
+	{
+        // we don't have it yet
+        // make sure the directory exists
+        [fm createDirectoryAtPath:root
+      withIntermediateDirectories:YES
+                       attributes:nil
+                            error:NULL];
+	}
+    
+    // see if campaign root exists in the active root
+    if (![fm fileExistsAtPath:activeRootCampaign])
+	{
+        // we don't have it yet
+        // make sure the directory exists
+        [fm createDirectoryAtPath:activeRootCampaign
+      withIntermediateDirectories:YES
+                       attributes:nil
+                            error:NULL];
+	}
+    
+    // clear existing content for the active root current campaign
+    NSArray *content = [fm contentsOfDirectoryAtPath:activeRootCampaign
+                                               error:&error];
+    
+    NSLog(@"Content in active root directory %@: %@", activeRootCampaign, content);
+    
+    // traverse content and remove any current active creative
+    BOOL isDirectory = NO;
+    for (NSString *currentCreativeId in content)
+    {
+        NSString *path = [activeRootCampaign stringByAppendingPathComponent:currentCreativeId];
+        if ([fm fileExistsAtPath:path
+                     isDirectory:&isDirectory])
+        {
+            // file exists, check if is a directory
+            if (isDirectory)
+            {
+                // this is expected
+                // assume it is safe to remove
+                BOOL success = [fm removeItemAtPath:path
+                                              error:&error];
+                if (success)
+                    NSLog(@"Succesufully cleared current active root cache for creative %@", currentCreativeId);
+                else
+                    NSLog(@"Failed to clear active root cache. Reason: %@", [error description]);
+            }
+        }
+    }
+    
+    // proceed and move cached creative to active root campaign directory
+    // warning: this may fail, check if above clear was succesuful
+    NSLog(@"Moving cached creative from ==== %@ ==== to ==== %@ ====", source, destination);
+    BOOL success = [fm moveItemAtPath:source
+                               toPath:destination
+                                error:&error];
+    if (success)
+    {
+        NSLog(@"Successufully moved cached creative to active root directory");
+        
+        // build the new url for loading the ad from the correct campaign directory within active root directory
+        //NSString *urlString = [NSString stringWithFormat:@"http://localhost:%i/%@/%@/index.html", [m_server port],
+        //                       activeRootCampaign, creativeId];
+        NSString *urlString = [NSString stringWithFormat:@"http://localhost:%i/%@/%@/index.html", [m_server port],
+                               campaignPathComponent, creativeId];
+        
+        NSLog(@"Built new URL for loading ad from active campaign directory: %@", urlString);
+
+        creativeURL = [NSURL URLWithString:urlString];
+    }else
+    {
+        NSLog(@"Failed to move cached creative to active root cache. Reason: %@", [error description]);
+    }
+    return creativeURL;
+}
 
 #pragma mark -
 #pragma mark Caching Resources for a Creative
@@ -436,6 +720,7 @@ NSString * const kMRAIDLocalServerResourceType = @"resource";
 	// determine the type and get the delegate
 	NSDictionary *userInfo = request.userInfo;
 	NSString *type = (NSString *)[userInfo objectForKey:kMRAIDLocalServerTypeKey];
+    NSURL *campaignBaseURL = (NSURL *)[userInfo objectForKey:kMRAIDLocalServerCampaignBaseURLKey];
 	id<MRAIDLocalServerDelegate> d = (id<MRAIDLocalServerDelegate>)[userInfo objectForKey:kMRAIDLocalServerDelegateKey];
 	
 	// now process the response based on the type
@@ -459,6 +744,7 @@ NSString * const kMRAIDLocalServerResourceType = @"resource";
 		//store the retrieved data
 		[self cacheHTML:html
 				baseURL:baseURL
+            campaignURL:campaignBaseURL
 		   withDelegate:d];
 	}
 	else if ( [kMRAIDLocalServerResourceType isEqualToString:type] )
@@ -514,6 +800,16 @@ NSString * const kMRAIDLocalServerResourceType = @"resource";
 }
 
 
+- (void)queueFinished:(ASINetworkQueue *)queue
+{
+    if ([m_queue requestsCount] == 0)
+    {
+        // we're done with this queue
+        [m_queue release];
+        m_queue = nil;
+	}
+	NSLog(@"Network queue finished");
+}
 
 #pragma mark -
 #pragma mark HTML Stub Control
@@ -662,12 +958,23 @@ NSString * const kMRAIDLocalServerResourceType = @"resource";
 
 
 
-- (NSString *)cachedHtmlForCreative:(NSString *)creativeId
+- (NSString *)cachedHtmlForCreative:(NSString *)creativeId fromCampaignBaseURL:(NSURL *)url
 {
-    NSString *path = [self.cacheRoot stringByAppendingPathComponent:[NSString stringWithFormat:@"%@", creativeId]];
+    NSString *campaignRootPath = [[url absoluteString] stringFromMD5];
+    
+    NSString *path = [campaignRootPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@", creativeId]];
 	NSString *fqpn = [path stringByAppendingPathComponent:@"index.html"];
     NSString *cachedHtml = [NSString stringWithContentsOfFile:fqpn encoding:NSUTF8StringEncoding error:nil];
     return cachedHtml;
+}
+
+- (long long)currentSystemTimeInMilliseconds
+{
+    struct timeval time;
+    gettimeofday(&time, NULL);
+    long long millis = (time.tv_sec * 1000) + (time.tv_usec / 1000);
+    
+    return millis;
 }
 
 @end

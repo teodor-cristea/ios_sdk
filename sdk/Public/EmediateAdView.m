@@ -16,6 +16,7 @@
 
 @synthesize baseURL;
 @synthesize refreshRate;
+@synthesize preloadCount;
 @synthesize parameters;
 
 - (id)initWithFrame:(CGRect)frame
@@ -26,6 +27,7 @@
         // Initialization code
         parameters = nil;
         refreshRate = 60;
+        preloadCount = 5;
     }
     return self;
 }
@@ -79,6 +81,11 @@
     self.refreshRate = refresh;
 }
 
+- (void)enablePreloadWithCount:(NSInteger)count
+{
+    self.preloadCount = count;
+}
+
 - (void)stop
 {
     self.parameters = nil;
@@ -98,7 +105,6 @@
 
 - (void)loadCreativeWithParameters:(NSDictionary *)params
 {
-    
     //    [self loadCreativeInternalWithParameters:params];
     
     if([CLLocationManager locationServicesEnabled] &&
@@ -123,7 +129,6 @@
         
         
     }
-    
 }
 
 - (void)loadCreativeInternalWithParameters:(NSDictionary *)params
@@ -148,6 +153,13 @@
                 {
                     [completeURLString appendFormat:@"%@=%@;", key, [self.parameters valueForKey:key]];
                 }
+            }
+            
+            if (completeURLString && [completeURLString length])
+            {
+                // Save the base URL for the campaign before we append location and EAS_UID
+                self.creativeBaseURL = [NSURL URLWithString:completeURLString];
+                NSLog(@"Creative campaign base URL: %@", self.creativeBaseURL);
             }
             
             if(self.userLocation){
@@ -187,7 +199,7 @@
         [completeURLString appendFormat:@"%@=%@", @"eas_uid", eas_uid];
         
         NSURL *url = [[NSURL alloc] initWithString:completeURLString];
-        [self loadCreative:url];
+        [self loadCreative:url withPreloadCount:self.preloadCount];
         [url release];
         url = nil;
     }

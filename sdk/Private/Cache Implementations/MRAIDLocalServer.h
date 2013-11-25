@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "HTTPServer.h"
 #import "ASIHTTPRequest.h"
+#import "ASINetworkQueue.h"
 #import "MRAIDDataAccessLayer.h"
 
 
@@ -41,6 +42,14 @@
 // called to get injectable javascript
 - (NSString *)javascriptForInjection;
 
+// called when a new creative has been pulled from cache.
+// can be nil which means current batch is depleted
+- (void)currentCachedCreativeChanged:(NSString *)creativeId;
+
+// called when a cached creative should be displayed
+- (void)showCachedCreative:(NSURL *)baseURL
+                     onURL:(NSURL *)url
+                    withId:(NSString *)creativeId;
 @end
 
 
@@ -50,10 +59,12 @@
 @private
 	HTTPServer *m_server;
 	MRAIDDataAccessLayer *m_dal;
+    ASINetworkQueue *m_queue;
 
 	NSString *m_htmlStub;
 }
 @property( nonatomic, copy, readonly ) NSString *cacheRoot;
+@property( nonatomic, copy, readonly ) NSString *cacheActiveRoot;
 @property( nonatomic, copy ) NSString *htmlStub;
 
 
@@ -61,17 +72,20 @@
 + (MRAIDLocalServer *)sharedInstance;
 
 + (NSString *)rootDirectory;
-
++ (NSString *)rootActiveDirectory;
 
 // used to cache a specific URL
+// optional preloading
 - (void)cacheURL:(NSURL *)url
-	withDelegate:(id<MRAIDLocalServerDelegate>)delegate;
-
+     fromCampaignURL:(NSURL *)baseURL
+	withDelegate:(id<MRAIDLocalServerDelegate>)delegate
+ andPreloadCount:(NSInteger)count;
 
 
 // used to cache local HTML
-- (void)cacheHTML:(NSString *)html
+- (void)cacheHTML:(NSString *)baseHtml
 		  baseURL:(NSURL *)baseURL
+      campaignURL:(NSURL *)campaignURL
 	 withDelegate:(id<MRAIDLocalServerDelegate>)delegate;
 
 
@@ -100,7 +114,7 @@
 + (void)removeAllCachedResources;
 
 
-- (NSString *)cachedHtmlForCreative:(NSString *)creativeId;
+- (NSString *)cachedHtmlForCreative:(NSString *)creativeId fromCampaignBaseURL:(NSURL *)url;
 
 
 @end
