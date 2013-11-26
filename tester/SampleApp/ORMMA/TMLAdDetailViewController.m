@@ -80,7 +80,7 @@
   //adView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
   [adView setMraidDelegate:self]; //To recieve call backs from MRAID script for interactions by user
   [adView fetchCampaignWithRefreshRate:10]; //Rate at which ad changes...
-  [adView enablePreloadWithCount:10];
+  [adView enablePreloadWithCount:10]; //Preload count
   [adView setBaseURL:[adDetails objectForKey:@"BaseURL"]]; //Base URL.
     
   [self.view addSubview:adView];
@@ -143,7 +143,7 @@
     {
       if (adViewInTable == nil)
       {
-          adViewInTable = nil;//[[EmediateAdView alloc] initWithFrame:CGRectZero];
+          adViewInTable = [[EmediateAdView alloc] initWithFrame:CGRectZero];
         if (UIInterfaceOrientationIsLandscape([[UIDevice currentDevice] orientation]))
         {
           if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
@@ -172,8 +172,7 @@
         [adViewInTable fetchCampaignWithRefreshRate:10]; //Rate at which ad changes...
         [adViewInTable setBaseURL:[adDetails objectForKey:@"BaseURL"]]; //Base URL.
         [cell.contentView addSubview:adViewInTable];
-        NSDictionary *dictionary = [[NSDictionary alloc] initWithObjectsAndKeys:@"1285", @"cu", @"mu", @"cre", @"_blank", @"target", nil];
-        [adViewInTable loadCreativeWithParameters:dictionary];
+        [adViewInTable loadCreativeWithParameters:[adDetails objectForKey:@"Params"]];
       }
     }
     else
