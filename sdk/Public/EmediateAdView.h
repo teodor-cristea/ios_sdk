@@ -11,7 +11,8 @@
 
 @interface EmediateAdView : MRAIDView
 {
-  NSInteger refreshRate; //Rate at which advertisement changes
+  NSInteger refreshRate; //Rate at which advertisement changes. If "0" or negative, means "no refresh". Defaults to 60 sec.
+  NSInteger preloadCount; //Number of ads that will be pre-loaded within a campaign. If 0 or negative, means "no preload". Defaults to 5.
   NSDictionary *parameters; //Parameters of URL to get content unit.
   NSTimer *refreshTimer; //Refresh timer which triggers at the specified refreshRate time regularly.
 }
@@ -19,6 +20,7 @@
 @property (nonatomic, retain) NSString *baseURL;  //base URL for ads.
 @property (nonatomic, retain) NSDictionary *parameters; //parameters to load ads
 @property (nonatomic) NSInteger refreshRate; //rate at which ad refreshes
+@property (nonatomic) NSInteger preloadCount; //number of pre-loaded ads to increase performace when loading and displaying ad content. This will also make it possible to present ads offline.
 
 /*
 Pass the required parameters to get the ads.
@@ -34,6 +36,9 @@ Parametes has the form key=value.
 
 //time interval at which compaign gets refreshed.
 - (void)fetchCampaignWithRefreshRate:(NSInteger)refresh;
+
+//Number of ads that will be pre-loaded (within requested campaign).
+- (void)enablePreloadWithCount:(NSInteger)count;
 
 //Refresh compaign.
 - (void)refreshCreative;

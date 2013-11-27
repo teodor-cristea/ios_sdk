@@ -59,6 +59,7 @@ typedef enum MRAIDViewStateEnum
 	MRAIDWebBrowserViewController *m_webBrowser;
 	MRAIDAVPlayer *m_moviePlayer;
 	
+    NSURL *m_creativeBaseURL;
 	NSURL *m_creativeURL;
 	NSString *m_creativeId;	
 
@@ -94,6 +95,7 @@ typedef enum MRAIDViewStateEnum
 @property( nonatomic, assign ) id<MRAIDViewDelegate> mraidDelegate;
 @property( nonatomic, copy ) NSString *htmlStub;
 @property( nonatomic, copy ) NSURL *creativeURL;
+@property( nonatomic, copy ) NSURL *creativeBaseURL;
 @property( nonatomic, retain, readonly ) NSError *lastError;
 @property( nonatomic, assign, readonly ) MRAIDViewState currentState;
 @property( nonatomic, assign ) CGSize maxSize;
@@ -101,8 +103,7 @@ typedef enum MRAIDViewStateEnum
 @property( nonatomic, assign, readonly ) BOOL isMRAIDAd;
 @property( nonatomic, assign ) CLLocation* userLocation;
 
-- (void)loadCreative:(NSURL *)url;
-
+- (void)loadCreative:(NSURL *)url withPreloadCount:(NSInteger)count;
 
 - (void)loadHTMLCreative:(NSString *)htmlFragment
 			 creativeURL:(NSURL *)url;

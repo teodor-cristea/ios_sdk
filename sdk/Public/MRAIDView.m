@@ -116,6 +116,7 @@ NSString * const kDefaultPositionMRAIDPropertiesFormat = @"{ defaultPosition: { 
 @synthesize mraidDelegate = m_mraidDelegate;
 @dynamic htmlStub;
 @synthesize creativeURL = m_creativeURL;
+@synthesize creativeBaseURL = m_creativeBaseURL;
 @synthesize lastError = m_lastError;
 @synthesize currentState = m_currentState;
 @synthesize maxSize = m_maxSize;
@@ -150,7 +151,7 @@ NSString * const kDefaultPositionMRAIDPropertiesFormat = @"{ defaultPosition: { 
 	s_mraidBundle = [[NSBundle bundleWithPath:path] retain];
 	
 	// load the Public Javascript API
-	path = [MRAIDLocalServer rootDirectory];
+	path = [MRAIDLocalServer rootActiveDirectory];
 	[self copyFile:@"mraid"
 			ofType:@"js" 
 		fromBundle:s_mraidBundle
@@ -259,6 +260,7 @@ NSString * const kDefaultPositionMRAIDPropertiesFormat = @"{ defaultPosition: { 
 
 	// free up some memory
 	[m_creativeURL release], m_creativeURL = nil;
+    [m_creativeBaseURL release], m_creativeBaseURL = nil;
 	m_currentDevice = nil;
 	[m_lastError release], m_lastError = nil;
 	[m_webView release], m_webView = nil;
@@ -459,7 +461,7 @@ shouldStartLoadWithRequest:(NSURLRequest *)request
 //}
 //
 
-- (void)loadCreative:(NSURL *)url
+- (void)loadCreative:(NSURL *)url withPreloadCount:(NSInteger)count
 {
 	// reset our state
 	m_applicationReady = NO;
@@ -471,7 +473,9 @@ shouldStartLoadWithRequest:(NSURLRequest *)request
 	self.creativeURL = url;
   
 	[s_localServer cacheURL:url
-			   withDelegate:self];
+                fromCampaignURL:self.creativeBaseURL
+			   withDelegate:self
+            andPreloadCount:count];
 }
 
 
@@ -486,6 +490,7 @@ shouldStartLoadWithRequest:(NSURLRequest *)request
 	self.creativeURL = url;
 	[s_localServer cacheHTML:htmlFragment
 					 baseURL:url
+                 campaignURL:self.creativeBaseURL
 				withDelegate:self];
 }
 
@@ -1513,13 +1518,41 @@ lockOrientation:(BOOL)allowOrientationChange
 {
 	if ( [self.creativeURL isEqual:creativeURL] )
 	{
-		// now show the cached file
-		if(m_creativeId != creativeId)
-		{
-             	 [m_creativeId release];
-             	 m_creativeId = [creativeId retain];
-         	}
-        NSLog(@"cachedCreative url = %@",url);
+        if (!m_creativeId || ![m_creativeId length])
+        {
+            // there is no creative currently being displayed (cache has been depleted)
+            // force local server to pull it from cache
+            [s_localServer cacheURL:creativeURL
+                    fromCampaignURL:self.creativeBaseURL
+                       withDelegate:self
+                    andPreloadCount:0];
+        }
+	}
+}
+
+
+- (void)currentCachedCreativeChanged:(NSString *)creativeId
+{
+    // update creative to show
+    if(m_creativeId != creativeId)
+    {
+        [m_creativeId release];
+        m_creativeId = [creativeId retain];
+    }
+}
+
+
+- (void)showCachedCreative:(NSURL *)creativeURL
+                     onURL:(NSURL *)url
+                    withId:(NSString *)creativeId
+{
+    if ( [self.creativeURL isEqual:creativeURL] )
+	{
+        // force changing current creative
+        [self currentCachedCreativeChanged:creativeId];
+        
+        // now show the cached file
+        NSLog(@"show cachedCreative url = %@", url);
 		NSURLRequest *request = [NSURLRequest requestWithURL:url];
 		m_loadingAd = YES;
 		[m_webView loadRequest:request];
@@ -1555,7 +1588,7 @@ lockOrientation:(BOOL)allowOrientationChange
 - (NSString *)cachedHtmlForCreative
 {
     MRAIDLocalServer *cache = [MRAIDLocalServer sharedInstance];
-    return [cache cachedHtmlForCreative:m_creativeId];
+    return [cache cachedHtmlForCreative:m_creativeId fromCampaignBaseURL:m_creativeBaseURL];
 }
 
 // Returns the computed creative id

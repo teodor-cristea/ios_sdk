@@ -22,6 +22,8 @@
 		DAFB246815BFC662009A1C5F /* EmediateAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = DAFB246415BFBA2E009A1C5F /* EmediateAdView.m */; };
 		DAFB246915BFC686009A1C5F /* EmediateAdView.h in Headers */ = {isa = PBXBuildFile; fileRef = DAFB246315BFBA2E009A1C5F /* EmediateAdView.h */; };
 		E51EF8AC167A1F2B005B3D10 /* MRAIDAVPlayer.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 37AF0C1B13611D2600363D4F /* MRAIDAVPlayer.h */; };
+		E8CEDA70183CD5990061CC26 /* NSString+MD5Addition.h in Headers */ = {isa = PBXBuildFile; fileRef = E8462AC4183C0468009416ED /* NSString+MD5Addition.h */; };
+		E8CEDA71183CD5A10061CC26 /* NSString+MD5Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = E8462AC5183C0468009416ED /* NSString+MD5Addition.m */; };
 		FA61E227129C27CB00214103 /* MRAIDView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = FAD28BC112381B2A00562D0B /* MRAIDView.h */; };
 		FA61E228129C27CD00214103 /* MRAIDWebBrowserViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = FAE2E8E9128C4D6200A1B1ED /* MRAIDWebBrowserViewController.h */; };
 		FA7756B91263598300CC8838 /* AsyncSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = FA7756A01263598300CC8838 /* AsyncSocket.h */; };
@@ -170,6 +172,8 @@
 		DAED40A11611BAC80066D597 /* TMLOpenUDID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMLOpenUDID.m; sourceTree = "<group>"; };
 		DAFB246315BFBA2E009A1C5F /* EmediateAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmediateAdView.h; sourceTree = "<group>"; };
 		DAFB246415BFBA2E009A1C5F /* EmediateAdView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmediateAdView.m; sourceTree = "<group>"; };
+		E8462AC4183C0468009416ED /* NSString+MD5Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5Addition.h"; sourceTree = "<group>"; };
+		E8462AC5183C0468009416ED /* NSString+MD5Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5Addition.m"; sourceTree = "<group>"; };
 		FA7756A01263598300CC8838 /* AsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncSocket.h; sourceTree = "<group>"; };
 		FA7756A11263598300CC8838 /* AsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncSocket.m; sourceTree = "<group>"; };
 		FA7756A21263598300CC8838 /* DDData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDData.h; sourceTree = "<group>"; };
@@ -356,6 +360,15 @@
 			name = "Other Sources";
 			sourceTree = "<group>";
 		};
+		E8462AC3183C0468009416ED /* MD5 */ = {
+			isa = PBXGroup;
+			children = (
+				E8462AC4183C0468009416ED /* NSString+MD5Addition.h */,
+				E8462AC5183C0468009416ED /* NSString+MD5Addition.m */,
+			);
+			path = MD5;
+			sourceTree = "<group>";
+		};
 		FA77569E1263570500CC8838 /* Cocoa HTTP Server */ = {
 			isa = PBXGroup;
 			children = (
@@ -505,6 +518,7 @@
 				FA77569E1263570500CC8838 /* Cocoa HTTP Server */,
 				FAB6E0451240291D00DF64C9 /* Erica Sadun */,
 				FAD233B51268EF1B00921D13 /* FMDB */,
+				E8462AC3183C0468009416ED /* MD5 */,
 			);
 			path = "Third Party";
 			sourceTree = "<group>";
@@ -617,6 +631,7 @@
 				FA7756BD1263598300CC8838 /* DDNumber.h in Headers */,
 				097A6AC4181FC5F600056456 /* ASIDataDecompressor.h in Headers */,
 				FA7756BF1263598300CC8838 /* DDRange.h in Headers */,
+				E8CEDA70183CD5990061CC26 /* NSString+MD5Addition.h in Headers */,
 				FA7756C11263598300CC8838 /* HTTPAsyncFileResponse.h in Headers */,
 				FA7756C31263598300CC8838 /* HTTPAuthenticationRequest.h in Headers */,
 				FA7756C51263598300CC8838 /* HTTPConnection.h in Headers */,
@@ -688,7 +703,7 @@
 		0867D690FE84028FC02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0450;
+				LastUpgradeCheck = 0500;
 			};
 			buildConfigurationList = 1DEB922208733DC00010E9CD /* Build configuration list for PBXProject "EmediateSDK" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -800,6 +815,7 @@
 				FA7756C81263598300CC8838 /* HTTPDynamicFileResponse.m in Sources */,
 				FA7756CA1263598300CC8838 /* HTTPResponse.m in Sources */,
 				FA7756CC1263598300CC8838 /* HTTPServer.m in Sources */,
+				E8CEDA71183CD5A10061CC26 /* NSString+MD5Addition.m in Sources */,
 				FA7756D01263598300CC8838 /* WebSocket.m in Sources */,
 				FAD232FF1268A93E00921D13 /* MRAIDLocalServer.m in Sources */,
 				FAD233BD1268EF1B00921D13 /* FMDatabase.m in Sources */,
@@ -838,7 +854,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/ORMMA.dst;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -858,7 +873,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				DSTROOT = /tmp/ORMMA.dst;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -874,13 +888,13 @@
 		1DEB922308733DC00010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-all_load",
 					"-ObjC",
@@ -894,7 +908,6 @@
 		1DEB922408733DC00010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
