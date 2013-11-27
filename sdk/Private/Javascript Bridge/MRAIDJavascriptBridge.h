@@ -21,12 +21,18 @@
 											 CLLocationManagerDelegate>
 {
 @private
-	id<MRAIDJavascriptBridgeDelegate> m_bridgeDelegate;
+	id<MRAIDJavascriptBridgeDelegate> __weak m_bridgeDelegate;
 	
 	Reachability *m_reachability;
 	CLLocationManager *m_locationManager;
 	CMMotionManager *m_motionManager;
-	UIAccelerometer *m_accelerometer;
+    
+    // suppress warning for deprecated UIAccelerometer
+#       pragma clang diagnostic push
+#       pragma clang diagnostic ignored "-Wdeprecated-declarations"
+    UIAccelerometer *m_accelerometer;
+#       pragma clang diagnostic pop
+
 	NSTimer *m_timer;
 	
 	BOOL m_accelerometerEnableCount;
@@ -38,8 +44,8 @@
 	BOOL m_processShake;
 	CGFloat m_shakeIntensity;
 }
-@property( nonatomic, assign ) id<MRAIDJavascriptBridgeDelegate> bridgeDelegate;
-@property( nonatomic, retain ) CMMotionManager *motionManager;
+@property( nonatomic, weak ) id<MRAIDJavascriptBridgeDelegate> bridgeDelegate;
+@property( nonatomic, strong ) CMMotionManager *motionManager;
 @property( nonatomic, copy, readonly ) NSString *networkStatus;
 
 

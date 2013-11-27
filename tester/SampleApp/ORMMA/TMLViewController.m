@@ -29,7 +29,6 @@
 {
   UIView *view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
   self.view = view;
-  [view release];
   view = nil;
 }
 
@@ -55,7 +54,6 @@
     
   UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(add:)];
   self.navigationItem.leftBarButtonItem = addButton;
-  [addButton release];
   addButton = nil;
   
   self.navigationItem.rightBarButtonItem = self.editButtonItem;
@@ -91,24 +89,16 @@
 { 
   [[NSNotificationCenter defaultCenter] removeObserver:self name:@"ValuesEnteredNotification" object:nil];
   
-  if (url)
-  {
-    [url release];
-    url = nil;
-  }  
   if (adsTableView)
   {
     adsTableView.delegate = nil;
     adsTableView.dataSource = nil;
-    [adsTableView release];
     adsTableView = nil;
   }  
   if (adsArray)
   {
-    [adsArray release];
     adsArray = nil;
   }  
-  [super dealloc]; 
 }
 
 #pragma mark 
@@ -153,7 +143,6 @@
                                        destructiveButtonTitle:nil 
                                             otherButtonTitles:@"Open in Safari", nil];
 	[sheet showInView:view];
-	[sheet release];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet 
@@ -183,7 +172,6 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
 {
   TMLDetailController *detailViewController = [[TMLDetailController alloc] initWithNibName:nil bundle:nil];
   [self.navigationController pushViewController:detailViewController animated:YES];
-  [detailViewController release];
   detailViewController = nil;
 }
 
@@ -197,7 +185,7 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
   UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AD"];
   if (!cell)
   {
-    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"AD"] autorelease];
+    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"AD"];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
   }
   
@@ -234,7 +222,6 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
   TMLAdDetailViewController *adDetailViewController = [[TMLAdDetailViewController alloc] initWithNibName:nil bundle:nil];
   adDetailViewController.adDetails = [adsArray objectAtIndex:indexPath.row];
   [self.navigationController pushViewController:adDetailViewController animated:YES];
-  [adDetailViewController release];
   adDetailViewController = nil;
 }
 

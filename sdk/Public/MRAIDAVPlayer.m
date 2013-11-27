@@ -25,11 +25,6 @@
 	return self;
 }
 
--(void)dealloc
-{
-	[actIndicator release];
-	[super dealloc];
-}
 
 @end
 
@@ -146,7 +141,6 @@
 														 name:MPMoviePlayerLoadStateDidChangeNotification 
 													   object:nil];
 		[loadingView removeFromSuperview];
-		[loadingView release];
 		loadingView = nil;
 		
         if (!statusBarAvailable && !isAudio) 
@@ -183,11 +177,9 @@
 		if (loadingView) 
 		{
 			[loadingView removeFromSuperview];
-			[loadingView release];
 			loadingView = nil;
 		}
 		
-		[mraidPlayer release];
 		mraidPlayer = nil;
 		if(self.delegate)
 		{
@@ -210,7 +202,6 @@
             [[UIApplication sharedApplication] setStatusBarStyle:oldStyle];
         }
 		mraidPlayer.initialPlaybackTime = -1;
-		[mraidPlayer release];
 		mraidPlayer = nil;
 		if(self.delegate)
 		{
@@ -222,10 +213,8 @@
 - (void)dealloc {		
 	if (avPlayer) 
 	{
-		[avPlayer release];
 		avPlayer = nil;		
 	}
-    [super dealloc];
 }
 
 -(void)showLoadingScreen:(CGRect)frame

@@ -50,9 +50,8 @@
 
 - (void)dealloc
 {
-	[m_request release], m_request = nil;
-	[m_createdOn release], m_createdOn = nil;
-	[super dealloc];
+	m_request = nil;
+	m_createdOn = nil;
 }
 
 @end

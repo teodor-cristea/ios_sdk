@@ -92,39 +92,39 @@ NSString * const kMRAIDLocalServerResourceType = @"resource";
 + (void)initialize
 {
 	// make sure an autorelease pool is active
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	@autoreleasepool {
 	
 	// access our bundle
-	NSString *path = [[NSBundle mainBundle] pathForResource:@"MRAID"
-													 ofType:@"bundle"];
-	if ( path == nil )
-	{
-		[NSException raise:@"Invalid Build Detected"
-					format:@"Unable to find MRAID.bundle. Make sure it is added to your resources!"];
-	}
-	NSBundle *mraidBundle = [NSBundle bundleWithPath:path];
+		NSString *path = [[NSBundle mainBundle] pathForResource:@"MRAID"
+														 ofType:@"bundle"];
+		if ( path == nil )
+		{
+			[NSException raise:@"Invalid Build Detected"
+						format:@"Unable to find MRAID.bundle. Make sure it is added to your resources!"];
+		}
+		NSBundle *mraidBundle = [NSBundle bundleWithPath:path];
 
-	// setup the default HTML Stub
-	path = [mraidBundle pathForResource:@"MRAID_Standard_HTML_Stub"
-								   ofType:@"html"];
-	NSLog( @"HTML Stub Path is: %@", path );
-	s_standardHTMLStub = [[NSString stringWithContentsOfFile:path
-													encoding:NSUTF8StringEncoding
-													   error:NULL] retain];
-	
-	// setup the default HTML Stub
-	path = [mraidBundle pathForResource:@"MRAID_Standard_JS_Stub"
-								   ofType:@"html"];
-	NSLog( @"JS Stub Path is: %@", path );
-	s_standardJSStub = [[NSString stringWithContentsOfFile:path
-												  encoding:NSUTF8StringEncoding
-													 error:NULL] retain];
-	
-	// perform cache cleanup
-	[self reapCache];
+		// setup the default HTML Stub
+		path = [mraidBundle pathForResource:@"MRAID_Standard_HTML_Stub"
+									   ofType:@"html"];
+		NSLog( @"HTML Stub Path is: %@", path );
+		s_standardHTMLStub = [NSString stringWithContentsOfFile:path
+														encoding:NSUTF8StringEncoding
+														   error:NULL];
+		
+		// setup the default HTML Stub
+		path = [mraidBundle pathForResource:@"MRAID_Standard_JS_Stub"
+									   ofType:@"html"];
+		NSLog( @"JS Stub Path is: %@", path );
+		s_standardJSStub = [NSString stringWithContentsOfFile:path
+													  encoding:NSUTF8StringEncoding
+														 error:NULL];
+		
+		// perform cache cleanup
+		[self reapCache];
 	
 	// done with pool
-	[pool drain];
+	}
 }
 
 
@@ -175,18 +175,16 @@ NSString * const kMRAIDLocalServerResourceType = @"resource";
 	[nc removeObserver:self];
 
 	// release our internals
-	[m_htmlStub release], m_htmlStub = nil;
+	m_htmlStub = nil;
 	
 	// shutdown our server
 	[m_server stop];
-	[m_server release], m_server = nil;
+	m_server = nil;
     
     // cleanup network queue
     [m_queue cancelAllOperations];
-    [m_queue release];
     m_queue = nil;
     
-	[super dealloc];
 }
 
 
@@ -385,11 +383,10 @@ NSString * const kMRAIDLocalServerResourceType = @"resource";
         
         // stop anything already in the queue before removing it
         [m_queue cancelAllOperations];
-        [m_queue release];
         m_queue = nil;
         
         // setup network queue for preload
-        m_queue = [[ASINetworkQueue queue] retain];
+        m_queue = [ASINetworkQueue queue];
         [m_queue setDelegate:self];
         [m_queue setMaxConcurrentOperationCount:1];
         [m_queue setQueueDidFinishSelector:@selector(queueFinished:)];
@@ -805,7 +802,6 @@ NSString * const kMRAIDLocalServerResourceType = @"resource";
     if ([m_queue requestsCount] == 0)
     {
         // we're done with this queue
-        [m_queue release];
         m_queue = nil;
 	}
 	NSLog(@"Network queue finished");
@@ -892,11 +888,11 @@ NSString * const kMRAIDLocalServerResourceType = @"resource";
 	}
 	
 	// reschedule the timer
-	s_timer = [[NSTimer scheduledTimerWithTimeInterval:kCacheReaperTimeInterval
+	s_timer = [NSTimer scheduledTimerWithTimeInterval:kCacheReaperTimeInterval
 												target:self
 											  selector:@selector(reapCache)
 											  userInfo:nil
-											   repeats:NO] retain];
+											   repeats:NO];
 }
 
 #pragma mark -

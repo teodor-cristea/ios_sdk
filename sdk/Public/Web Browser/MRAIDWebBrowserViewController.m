@@ -67,8 +67,8 @@ static NSString *s_scale = nil;
 
 + (MRAIDWebBrowserViewController *)mraidWebBrowserViewController
 {
-	MRAIDWebBrowserViewController *c = [[[MRAIDWebBrowserViewController alloc] initWithNibName:@"MRAIDWebBrowserViewController"
-																					   bundle:s_mraidBundle] autorelease];
+	MRAIDWebBrowserViewController *c = [[MRAIDWebBrowserViewController alloc] initWithNibName:@"MRAIDWebBrowserViewController"
+																					   bundle:s_mraidBundle];
 	return c;
 }
 
@@ -93,7 +93,7 @@ static NSString *s_scale = nil;
 		[NSException raise:@"Invalid Build Detected"
 					format:@"Unable to find MRAID.bundle. Make sure it is added to your resources!"];
 	}
-	s_mraidBundle = [[NSBundle bundleWithPath:path] retain];
+	s_mraidBundle = [NSBundle bundleWithPath:path];
 }
 
 
@@ -110,17 +110,16 @@ static NSString *s_scale = nil;
 
 - (void)dealloc 
 {
-	[m_webView release], m_webView = nil;
-	[m_browserNavigationBar release], m_browserNavigationBar = nil;
-	[m_addressBarBackground release], m_addressBarBackground = nil;
-	[m_backButton release], m_backButton = nil;
-	[m_forwardButton release], m_forwardButton = nil;
-	[m_refreshButton release], m_refreshButton = nil;
-	[m_safariButton release], m_safariButton = nil;
-	[m_pageLoadingIndicator release], m_pageLoadingIndicator = nil;
-	[m_closeButton release], m_closeButton = nil;
+	m_webView = nil;
+	m_browserNavigationBar = nil;
+	m_addressBarBackground = nil;
+	m_backButton = nil;
+	m_forwardButton = nil;
+	m_refreshButton = nil;
+	m_safariButton = nil;
+	m_pageLoadingIndicator = nil;
+	m_closeButton = nil;
 	m_browserDelegate = nil;
-    [super dealloc];
 }
 
 
@@ -222,7 +221,7 @@ static NSString *s_scale = nil;
 	NSLog( @"Loading URL: %@", url );
 	if ( m_url != nil )
 	{
-		[m_url release], m_url = nil;
+		m_url = nil;
 	}
 	m_url = url;
   [m_url copy];
