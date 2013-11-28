@@ -338,32 +338,10 @@ NSString * const kMRAIDLocalServerResourceType = @"resource";
     
     // check reachability status for the offline mode
     // at this point cache is empty
-    if ([[Reachability reachabilityForInternetConnection] currentReachabilityStatus] == kNotReachable)
-    {
-        // no Internet connection
-        // make sure we poll last used ad from active root directory
-        NSLog(@"No internet connection and the cache is empty");
-        
-        NSString *activeCreativeId = [MRAIDLocalServer cachedActiveCreativeForCampaignBaseURL:baseURL];
-        if (activeCreativeId && [activeCreativeId length])
-        {
-            NSLog(@"Displaying current active creative with id: %@", activeCreativeId);
-            NSString *urlString = [NSString stringWithFormat:@"http://localhost:%i/%@/%@/index.html", [m_server port],
-                                   [[baseURL absoluteString] stringFromMD5], activeCreativeId];
-
-            NSURL *creativeURL = [NSURL URLWithString:urlString];
-            
-            // notify the delegate to show this creative
-            [delegate showCachedCreative:url
-                                   onURL:creativeURL
-                                  withId:nextCreativeId];
-
-            return;
-        }
-    }
+    NetworkStatus status = [[Reachability reachabilityForInternetConnection] currentReachabilityStatus];
     
     // second check if network queue doesn't already have tasks to execute
-    if (![m_queue requestsCount])
+    if (![m_queue requestsCount] && status != kNotReachable)
     {
         // queue is empty, proceed normally through network queue to kick-off preload
         // for a new batch
@@ -423,6 +401,30 @@ NSString * const kMRAIDLocalServerResourceType = @"resource";
         
         // kick-off preload
         [m_queue go];
+    }else
+    {
+        // either
+        // 1. no Internet connection or
+        // 2. queue is busy
+        // make sure we poll last used ad from active root directory
+        NSLog(@"No internet connection / Queue is busy and the cache is empty");
+        
+        NSString *activeCreativeId = [MRAIDLocalServer cachedActiveCreativeForCampaignBaseURL:baseURL];
+        if (activeCreativeId && [activeCreativeId length])
+        {
+            NSLog(@"Displaying current active creative with id: %@", activeCreativeId);
+            NSString *urlString = [NSString stringWithFormat:@"http://localhost:%i/%@/%@/index.html", [m_server port],
+                                   [[baseURL absoluteString] stringFromMD5], activeCreativeId];
+            
+            NSURL *creativeURL = [NSURL URLWithString:urlString];
+            
+            // notify the delegate to show this creative
+            [delegate showCachedCreative:url
+                                   onURL:creativeURL
+                                  withId:nextCreativeId];
+            
+            return;
+        }
     }
 }
 
