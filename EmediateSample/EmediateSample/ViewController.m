@@ -11,9 +11,9 @@
 
 @interface ViewController ()
 
-@property (nonatomic, retain) EmediateAdView *adViewTop;
-@property (nonatomic, retain) EmediateAdView *adViewMiddle;
-@property (nonatomic, retain) EmediateAdView *adViewBottom;
+@property (nonatomic, strong) EmediateAdView *adViewTop;
+@property (nonatomic, strong) EmediateAdView *adViewMiddle;
+@property (nonatomic, strong) EmediateAdView *adViewBottom;
 
 @end
 
@@ -26,31 +26,24 @@
 
 - (void)dealloc
 {
-    [_adViewTop release];
     _adViewTop = nil;
-    
-    [_adViewMiddle release];
     _adViewMiddle = nil;
-    
-    [_adViewBottom release];
     _adViewBottom = nil;
-    
-    [super dealloc];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    self.adViewTop = [[[EmediateAdView alloc] initWithFrame:CGRectMake(0.f, 0.f, 320.f, 100.f)] autorelease];
+    self.adViewTop = [[EmediateAdView alloc] initWithFrame:CGRectMake(0.f, 0.f, 320.f, 100.f)];
     self.adViewTop.backgroundColor = [UIColor redColor];
     [self.view addSubview:self.adViewTop];
     
-    self.adViewMiddle = [[[EmediateAdView alloc] initWithFrame:CGRectMake(0.f, 100.f, 320.f, 100.f)] autorelease];
+    self.adViewMiddle = [[EmediateAdView alloc] initWithFrame:CGRectMake(0.f, 100.f, 320.f, 100.f)];
     self.adViewMiddle.backgroundColor = [UIColor blueColor];
     [self.view addSubview:self.adViewMiddle];
     
-    self.adViewBottom = [[[EmediateAdView alloc] initWithFrame:CGRectMake(0.f, 200.f, 320.f, 100.f)] autorelease];
+    self.adViewBottom = [[EmediateAdView alloc] initWithFrame:CGRectMake(0.f, 200.f, 320.f, 100.f)];
     self.adViewBottom.backgroundColor = [UIColor greenColor];
     [self.view addSubview:self.adViewBottom];
 }
@@ -58,6 +51,10 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
+    
+    _adViewTop = nil;
+    _adViewMiddle = nil;
+    _adViewBottom = nil;
 }
 
 @end

@@ -97,7 +97,6 @@
 
 	// shutdown the database
 	[self close];
-	[super dealloc];
 }
 
 
@@ -154,13 +153,13 @@
 	{
 		if ( m_database == nil )
 		{
-			m_database = [[FMDatabase databaseWithPath:self.databasePath] retain];
+			m_database = [FMDatabase databaseWithPath:self.databasePath];
 			opened = [m_database open];
 			if ( !opened )
 			{
 				// error opening the database, shut it down
 				NSLog( @"Could not open the MRAID database" );
-				[m_database release], m_database  = nil;
+				m_database  = nil;
 			}
 			
 			// the database is opened, update the schema if necessary
@@ -179,7 +178,7 @@
 	{
 		if ( m_database != nil )
 		{
-			[m_database close],	[m_database release], m_database = nil;
+			[m_database close], m_database = nil;
 
 			NSLog( @"MRAID Database is closed." );
 		}
@@ -334,7 +333,7 @@
 		FMResultSet *rs = [m_database executeQuery:@"SELECT * FROM proxy_requests ORDER BY created_on LIMIT 1"];
 		if ( [rs next] )
 		{
-			saf = [[[MRAIDStoreAndForwardRequest alloc] init] autorelease];
+			saf = [[MRAIDStoreAndForwardRequest alloc] init];
 			saf.requestNumber = [rs longForColumn:@"request_number"];
 			saf.request = [rs stringForColumn:@"request"];
 			saf.createdOn = [rs dateForColumn:@"c reated_on"];

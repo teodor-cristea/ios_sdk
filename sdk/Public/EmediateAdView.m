@@ -51,7 +51,6 @@
     if (refreshTimer && [refreshTimer isValid])
     {
         [refreshTimer invalidate];
-        [refreshTimer release];
         refreshTimer = nil;
     }
 }
@@ -63,17 +62,8 @@
     if (refreshTimer && [refreshTimer isValid])
     {
         [refreshTimer invalidate];
-        [refreshTimer release];
         refreshTimer = nil;
     }
-    
-    if (parameters)
-    {
-        [parameters release];
-        parameters = nil;
-    }
-    
-    [super dealloc];
 }
 
 - (void)fetchCampaignWithRefreshRate:(NSInteger)refresh
@@ -93,7 +83,6 @@
     if (refreshTimer && [refreshTimer isValid])
     {
         [refreshTimer invalidate];
-        [refreshTimer release];
         refreshTimer = nil;
     }
 }
@@ -188,7 +177,7 @@
             srandom(unix_time);
             long r = (long)arc4random_uniform(999999999); // max nine digits
             
-            NSMutableString *eas_uid = [[[NSMutableString alloc] init] autorelease];
+            NSMutableString *eas_uid = [[NSMutableString alloc] init];
             [eas_uid appendFormat:@"%lu", unix_time];
             [eas_uid appendFormat:@"%09lu", r]; // pad to nine digits
             
@@ -200,13 +189,11 @@
         
         NSURL *url = [[NSURL alloc] initWithString:completeURLString];
         [self loadCreative:url withPreloadCount:self.preloadCount];
-        [url release];
         url = nil;
     }
     
     if (completeURLString)
     {
-        [completeURLString release];
         completeURLString = nil;
     }
 }
@@ -216,7 +203,6 @@
     if (!refreshTimer && self.refreshRate > 0)
     {
         refreshTimer = [NSTimer scheduledTimerWithTimeInterval:self.refreshRate target:self selector:@selector(refreshCreative) userInfo:nil repeats:YES];
-        [refreshTimer retain];
     }
     
     if([super respondsToSelector:@selector(fireAdWillShowCalledFromChildView)]){
@@ -229,7 +215,6 @@
     if (refreshTimer)
     {
         [refreshTimer invalidate];
-        [refreshTimer release];
         refreshTimer = nil;
     }
     if([super respondsToSelector:@selector(fireAppShouldSuspendCalledFromChildView)]){
@@ -243,14 +228,12 @@
     if (refreshTimer)
     {
         [refreshTimer invalidate];
-        [refreshTimer release];
         refreshTimer = nil;
     }
     
     if (self.refreshRate > 0)
     {
         refreshTimer = [NSTimer scheduledTimerWithTimeInterval:self.refreshRate target:self selector:@selector(refreshCreative) userInfo:nil repeats:YES];
-        [refreshTimer retain];
     }
     
     if([super respondsToSelector:@selector(fireAppShouldResumeCalledFromChildView)]){

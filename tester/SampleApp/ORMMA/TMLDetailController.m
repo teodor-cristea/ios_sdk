@@ -27,7 +27,6 @@
   [view setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
   
   self.view = view;
-  [view release];
   view = nil;
 }
 
@@ -35,7 +34,6 @@
 {
   UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(done:)];
   self.navigationItem.rightBarButtonItem = doneButton;
-  [doneButton release];
   doneButton = nil;
    
     NSLog(@"Creating name label");
@@ -188,15 +186,12 @@
 {
   if (baseURLField) 
   {
-    [baseURLField release];
     baseURLField = nil;
   }
   if (parametersField)
   {
-    [parametersField release];
     parametersField = nil;
   }
-  [super dealloc];
 }
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
@@ -250,7 +245,6 @@
     }
   NSDictionary *dictionary = [[NSDictionary alloc] initWithObjectsAndKeys:adNameField.text, @"AdName", baseURLField.text, @"BaseURL", parametersField.text, @"Params", nil];
   [[NSNotificationCenter defaultCenter] postNotificationName:@"ValuesEnteredNotification" object:nil userInfo:dictionary];
-  [dictionary release];
   dictionary = nil;
   [self.navigationController popViewControllerAnimated:YES];
 }

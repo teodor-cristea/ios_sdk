@@ -14,6 +14,6 @@
   NSMutableArray *adsArray;  //Ads array which contains URL's
 }
 
-@property (nonatomic, retain) NSURL *url;
+@property (nonatomic, strong) NSURL *url;
 
 @end

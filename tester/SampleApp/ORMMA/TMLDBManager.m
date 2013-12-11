@@ -49,7 +49,7 @@ static sqlite3 *database = NULL;
       }
   }
   
-  return [params autorelease];
+  return params;
 }
 
 - (NSDictionary *)formattedDictionaryFromDictionary:(NSDictionary *)dict
@@ -66,9 +66,8 @@ static sqlite3 *database = NULL;
   }
   NSDictionary *urlParams = [[NSDictionary alloc] initWithObjectsAndKeys:[dict objectForKey:@"AdName"], @"AdName", [dict objectForKey:@"BaseURL"], @"BaseURL", params, @"Params", nil];
   NSLog(@"urlParams = %@", urlParams);
-  [params release];
   params = nil;
-  return [urlParams autorelease];
+  return urlParams;
 }
 
 - (void)insertAd:(NSDictionary *)ad
@@ -112,7 +111,7 @@ static sqlite3 *database = NULL;
 
 - (NSArray *)ads
 {
-  NSMutableArray *ads = [[[NSMutableArray alloc] init] autorelease];
+  NSMutableArray *ads = [[NSMutableArray alloc] init];
   char *query = "SELECT * FROM Ads";
   sqlite3_stmt *statement = NULL;
   if (sqlite3_prepare_v2(database, query, -1, &statement, NULL) != SQLITE_OK)
@@ -133,7 +132,6 @@ static sqlite3 *database = NULL;
     {
       NSString *adName = [[NSString alloc] initWithFormat:@"%s", name];
       [ad setObject:adName forKey:@"AdName"];
-      [adName release];
       adName = nil;
     }
     
@@ -142,7 +140,6 @@ static sqlite3 *database = NULL;
     {
       NSString *adParams = [[NSString alloc] initWithFormat:@"%s", params];
       [ad setObject:[self formattedDictionaryFromString:adParams] forKey:@"Params"];
-      [adParams release];
       adParams = nil;
     }
     
@@ -151,12 +148,10 @@ static sqlite3 *database = NULL;
     {
       NSString *baseURL = [[NSString alloc] initWithFormat:@"%s", url];
       [ad setObject:baseURL forKey:@"BaseURL"];
-      [baseURL release];
       baseURL = nil;
     }
     
     [ads addObject:ad];
-    [ad release];
     ad = nil;
   }
       

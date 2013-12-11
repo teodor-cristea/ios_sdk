@@ -22,12 +22,12 @@
 						 MRAIDJavascriptBridgeDelegate,
 						 MRAIDLocalServerDelegate>
 
-@property( nonatomic, retain, readwrite ) NSError *lastError;
+@property( nonatomic, strong, readwrite ) NSError *lastError;
 @property( nonatomic, assign, readwrite ) MRAIDViewState currentState;
-@property( nonatomic, retain ) MRAIDWebBrowserViewController *webBrowser;
-@property( nonatomic, retain ) MRAIDAVPlayer *moviePlayer;
+@property( nonatomic, strong ) MRAIDWebBrowserViewController *webBrowser;
+@property( nonatomic, strong ) MRAIDAVPlayer *moviePlayer;
 @property( nonatomic, assign, readwrite ) BOOL isMRAIDAd;
-@property( nonatomic, retain ) NSURL *launchURL;
+@property( nonatomic, strong ) NSURL *launchURL;
 
 - (void)commonInitialization;
 
@@ -135,36 +135,36 @@ NSString * const kDefaultPositionMRAIDPropertiesFormat = @"{ defaultPosition: { 
 + (void)initialize
 {
 	// setup autorelease pool since this will be called outside of one
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	@autoreleasepool {
 	
 	// setup our cache
-	s_localServer = [MRAIDLocalServer sharedInstance];
-	
-	// access our bundle
-	NSString *path = [[NSBundle mainBundle] pathForResource:@"MRAID"
-													 ofType:@"bundle"];
-	if ( path == nil )
-	{
-		[NSException raise:@"Invalid Build Detected"
-					format:@"Unable to find MRAID.bundle. Make sure it is added to your resources!"];
-	} 
-	s_mraidBundle = [[NSBundle bundleWithPath:path] retain];
-	
-	// load the Public Javascript API
-	path = [MRAIDLocalServer rootActiveDirectory];
-	[self copyFile:@"mraid"
-			ofType:@"js" 
-		fromBundle:s_mraidBundle
-			toPath:path];
-	
-	// load the Native Javascript API
-	[self copyFile:@"mraid_bridge"
-			ofType:@"js" 
-		fromBundle:s_mraidBundle
-			toPath:path];
+		s_localServer = [MRAIDLocalServer sharedInstance];
+		
+		// access our bundle
+		NSString *path = [[NSBundle mainBundle] pathForResource:@"MRAID"
+														 ofType:@"bundle"];
+		if ( path == nil )
+		{
+			[NSException raise:@"Invalid Build Detected"
+						format:@"Unable to find MRAID.bundle. Make sure it is added to your resources!"];
+		} 
+		s_mraidBundle = [NSBundle bundleWithPath:path];
+		
+		// load the Public Javascript API
+		path = [MRAIDLocalServer rootActiveDirectory];
+		[self copyFile:@"mraid"
+				ofType:@"js" 
+			fromBundle:s_mraidBundle
+				toPath:path];
+		
+		// load the Native Javascript API
+		[self copyFile:@"mraid_bridge"
+				ofType:@"js" 
+			fromBundle:s_mraidBundle
+				toPath:path];
 	
 	// done with autorelease pool
-	[pool drain];
+	}
 }
 
 
@@ -259,23 +259,15 @@ NSString * const kDefaultPositionMRAIDPropertiesFormat = @"{ defaultPosition: { 
 	[m_currentDevice endGeneratingDeviceOrientationNotifications];
 
 	// free up some memory
-	[m_creativeURL release], m_creativeURL = nil;
-    [m_creativeBaseURL release], m_creativeBaseURL = nil;
 	m_currentDevice = nil;
-	[m_lastError release], m_lastError = nil;
-	[m_webView release], m_webView = nil;
-	[m_blockingView release], m_blockingView = nil;
+	m_webView = nil;
+	m_blockingView = nil;
 	m_mraidDelegate = nil;
-	[m_javascriptBridge restoreServicesToDefaultState], [m_javascriptBridge release], m_javascriptBridge = nil;
-	[m_webBrowser release], m_webBrowser = nil;
-	[m_launchURL release], m_launchURL = nil;
-	[m_externalProtocols removeAllObjects], [m_externalProtocols release], m_externalProtocols = nil;
-	[m_creativeId release];
+	[m_javascriptBridge restoreServicesToDefaultState], m_javascriptBridge = nil;
+	[m_externalProtocols removeAllObjects], m_externalProtocols = nil;
     
     [locationManager stopUpdatingLocation];
-    [locationManager release];
     
-    [super dealloc];
 }
 
 
@@ -593,7 +585,7 @@ shouldStartLoadWithRequest:(NSURLRequest *)request
 		 executeJavascript:(NSString *)javascript
 			   withVarArgs:(va_list)args
 {
-	NSString *js = [[[NSString alloc] initWithFormat:javascript arguments:args] autorelease];
+	NSString *js = [[NSString alloc] initWithFormat:javascript arguments:args];
 	NSLog( @"Executing Javascript: %@", js );
 	return [webView stringByEvaluatingJavaScriptFromString:js];
 }
@@ -1536,8 +1528,7 @@ lockOrientation:(BOOL)allowOrientationChange
     // update creative to show
     if(m_creativeId != creativeId)
     {
-        [m_creativeId release];
-        m_creativeId = [creativeId retain];
+        m_creativeId = creativeId;
     }
 }
 
@@ -2070,8 +2061,12 @@ lockOrientation:(BOOL)allowOrientationChange
 	if ( ( self.mraidDelegate != nil ) &&
  		 ( [self.mraidDelegate respondsToSelector:selector] ) )
 	{
-		[self.mraidDelegate performSelector:selector
+        // suppress warning for unknown selector in -arc
+#       pragma clang diagnostic push
+#       pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+        [self.mraidDelegate performSelector:selector
 								 withObject:self];
+#       pragma clang diagnostic pop
 	}
 }
 
@@ -2160,7 +2155,6 @@ lockOrientation:(BOOL)allowOrientationChange
 										  otherButtonTitles: @"Continue", nil];
 	alert.tag = 101;									  
 	[alert show];	
-	[alert release];
 }
 
 
@@ -2183,7 +2177,6 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
 																	   cancelButtonTitle:@"Ok" 
 																	   otherButtonTitles:nil];
 				[eventSavedSuccessfully show];
-				[eventSavedSuccessfully release];
 			}
 			else 
 			{
@@ -2193,11 +2186,10 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
 																		 cancelButtonTitle:@"Ok" 
 																		 otherButtonTitles:nil];
 				[eventSavedUNSuccessfully show];
-				[eventSavedUNSuccessfully release];
 			}
 		}
-		[event release]; event = nil;
-		[eventStore release]; eventStore = nil;
+		 event = nil;
+		 eventStore = nil;
 	}
 	else 
 	{
@@ -2251,7 +2243,7 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation
            fromLocation:(CLLocation *)oldLocation {
     
-    self.userLocation = [newLocation retain];
+    self.userLocation = newLocation;
 }
 
 #pragma mark -

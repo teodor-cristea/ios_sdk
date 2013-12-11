@@ -31,7 +31,6 @@
 {
   UIView *view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
   self.view = view;
-  [view release];
   view = nil;
     
     
@@ -46,7 +45,6 @@
   
   UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
   self.navigationItem.rightBarButtonItem = refreshButton;
-  [refreshButton release];
   refreshButton = nil;
   
   //Create ad view like UIView with frame.
@@ -134,7 +132,7 @@
   UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
   if (!cell)
   {
-    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
+    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
   }
   
   if (indexPath.row == 3)
@@ -300,7 +298,6 @@
   {
     [adView stop];
     [adView setMraidDelegate:nil];
-    [adView release];
     adView = nil;
   }
   
@@ -308,16 +305,9 @@
   {
     [adViewInTable stop];
     [adViewInTable setMraidDelegate:nil];
-    [adViewInTable release];
     adViewInTable = nil;
   }
 
-  if (adDetails)
-  {
-    [adDetails release];
-    adDetails = nil;
-  }
-  [super dealloc];
 }
 
 - (UIViewController *)mraidViewController

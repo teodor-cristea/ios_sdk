@@ -20,7 +20,7 @@
   EmediateAdView *adViewInTable;
 }
 
-@property (nonatomic, retain) NSDictionary *adDetails;
+@property (nonatomic, strong) NSDictionary *adDetails;
 @property (nonatomic) CGFloat expandedAdHeight;
 @property (nonatomic) BOOL isAdExpanded;
 

@@ -16,7 +16,7 @@
 
 @interface MRAIDJavascriptBridge ()
 
-@property( nonatomic, retain ) Reachability *reachability;
+@property( nonatomic, strong ) Reachability *reachability;
 
 - (NSDictionary *)parametersFromJSCall:(NSString *)parameterString;
 - (BOOL)processCommand:(NSString *)command
@@ -153,7 +153,7 @@ const CGFloat kDefaultShakeIntensity = 1.5;
 		// check for the availability of Core Motion
 		if ( NSClassFromString( @"CMMotionManager" ) != nil )
 		{
-			self.motionManager = [[[CMMotionManager alloc] init] autorelease];
+			self.motionManager = [[CMMotionManager alloc] init];
 		}
 		
 		// setup our network reachability
@@ -195,10 +195,9 @@ const CGFloat kDefaultShakeIntensity = 1.5;
 	
 	[m_timer invalidate], m_timer = nil;
 	m_bridgeDelegate = nil;
-	m_accelerometer.delegate = nil,[m_accelerometer release], m_accelerometer = nil;
-	[m_locationManager release], m_locationManager = nil;
+	m_accelerometer.delegate = nil, m_accelerometer = nil;
+	m_locationManager = nil;
 	[self.motionManager stopGyroUpdates], self.motionManager = nil;
-	[super dealloc];
 }
 
 
@@ -993,7 +992,7 @@ const CGFloat kDefaultShakeIntensity = 1.5;
 	// accelerometer monitoring
 	if ( m_accelerometerEnableCount > 0 )
 	{
-		m_accelerometer.delegate = nil, [m_accelerometer release], m_accelerometer = nil;
+		m_accelerometer.delegate = nil, m_accelerometer = nil;
 		m_accelerometerEnableCount = 0;
 	}
 	
@@ -1189,7 +1188,7 @@ const CGFloat kDefaultShakeIntensity = 1.5;
 	   didUpdateHeading:(CLHeading *)newHeading
 { 
 	NSLog( @"Heading Data Available: %f", newHeading.trueHeading );
-	NSDateFormatter *formatter = [[[NSDateFormatter alloc] init] autorelease];
+	NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
 	[formatter setTimeStyle:NSDateFormatterFullStyle];
 	[formatter setDateStyle:NSDateFormatterFullStyle];
 	[self.bridgeDelegate usingWebView:self.bridgeDelegate.webView

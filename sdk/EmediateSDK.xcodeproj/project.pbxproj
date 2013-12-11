@@ -8,50 +8,50 @@
 
 /* Begin PBXBuildFile section */
 		097A6AC2181FC5F600056456 /* ASIDataCompressor.h in Headers */ = {isa = PBXBuildFile; fileRef = 097A6ABE181FC5F600056456 /* ASIDataCompressor.h */; };
-		097A6AC3181FC5F600056456 /* ASIDataCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 097A6ABF181FC5F600056456 /* ASIDataCompressor.m */; };
+		097A6AC3181FC5F600056456 /* ASIDataCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 097A6ABF181FC5F600056456 /* ASIDataCompressor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		097A6AC4181FC5F600056456 /* ASIDataDecompressor.h in Headers */ = {isa = PBXBuildFile; fileRef = 097A6AC0181FC5F600056456 /* ASIDataDecompressor.h */; };
-		097A6AC5181FC5F600056456 /* ASIDataDecompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 097A6AC1181FC5F600056456 /* ASIDataDecompressor.m */; };
+		097A6AC5181FC5F600056456 /* ASIDataDecompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 097A6AC1181FC5F600056456 /* ASIDataDecompressor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		37AF0C1D13611D2600363D4F /* MRAIDAVPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 37AF0C1B13611D2600363D4F /* MRAIDAVPlayer.h */; };
 		37AF0C1E13611D2600363D4F /* MRAIDAVPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 37AF0C1C13611D2600363D4F /* MRAIDAVPlayer.m */; };
 		37D07A6E13A6BE5A00CE0E60 /* mraid_bridge.js in Resources */ = {isa = PBXBuildFile; fileRef = 37F360C31371FDB1002DCF6B /* mraid_bridge.js */; };
 		AACBBE4A0F95108600F1A2B1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AACBBE490F95108600F1A2B1 /* Foundation.framework */; };
 		DA139196162326DD00E40785 /* EmediateSDK_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = DA139195162326DD00E40785 /* EmediateSDK_Prefix.pch */; };
 		DAED40A21611BAC80066D597 /* TMLOpenUDID.h in Headers */ = {isa = PBXBuildFile; fileRef = DAED40A01611BAC80066D597 /* TMLOpenUDID.h */; };
-		DAED40A31611BAC80066D597 /* TMLOpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = DAED40A11611BAC80066D597 /* TMLOpenUDID.m */; };
+		DAED40A31611BAC80066D597 /* TMLOpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = DAED40A11611BAC80066D597 /* TMLOpenUDID.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		DAFB246715BFC61C009A1C5F /* EmediateAdView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = DAFB246315BFBA2E009A1C5F /* EmediateAdView.h */; };
 		DAFB246815BFC662009A1C5F /* EmediateAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = DAFB246415BFBA2E009A1C5F /* EmediateAdView.m */; };
 		DAFB246915BFC686009A1C5F /* EmediateAdView.h in Headers */ = {isa = PBXBuildFile; fileRef = DAFB246315BFBA2E009A1C5F /* EmediateAdView.h */; };
 		E51EF8AC167A1F2B005B3D10 /* MRAIDAVPlayer.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 37AF0C1B13611D2600363D4F /* MRAIDAVPlayer.h */; };
 		E8CEDA70183CD5990061CC26 /* NSString+MD5Addition.h in Headers */ = {isa = PBXBuildFile; fileRef = E8462AC4183C0468009416ED /* NSString+MD5Addition.h */; };
-		E8CEDA71183CD5A10061CC26 /* NSString+MD5Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = E8462AC5183C0468009416ED /* NSString+MD5Addition.m */; };
+		E8CEDA71183CD5A10061CC26 /* NSString+MD5Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = E8462AC5183C0468009416ED /* NSString+MD5Addition.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FA61E227129C27CB00214103 /* MRAIDView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = FAD28BC112381B2A00562D0B /* MRAIDView.h */; };
 		FA61E228129C27CD00214103 /* MRAIDWebBrowserViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = FAE2E8E9128C4D6200A1B1ED /* MRAIDWebBrowserViewController.h */; };
 		FA7756B91263598300CC8838 /* AsyncSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = FA7756A01263598300CC8838 /* AsyncSocket.h */; };
-		FA7756BA1263598300CC8838 /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7756A11263598300CC8838 /* AsyncSocket.m */; };
+		FA7756BA1263598300CC8838 /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7756A11263598300CC8838 /* AsyncSocket.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FA7756BB1263598300CC8838 /* DDData.h in Headers */ = {isa = PBXBuildFile; fileRef = FA7756A21263598300CC8838 /* DDData.h */; };
-		FA7756BC1263598300CC8838 /* DDData.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7756A31263598300CC8838 /* DDData.m */; };
+		FA7756BC1263598300CC8838 /* DDData.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7756A31263598300CC8838 /* DDData.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FA7756BD1263598300CC8838 /* DDNumber.h in Headers */ = {isa = PBXBuildFile; fileRef = FA7756A41263598300CC8838 /* DDNumber.h */; };
-		FA7756BE1263598300CC8838 /* DDNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7756A51263598300CC8838 /* DDNumber.m */; };
+		FA7756BE1263598300CC8838 /* DDNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7756A51263598300CC8838 /* DDNumber.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FA7756BF1263598300CC8838 /* DDRange.h in Headers */ = {isa = PBXBuildFile; fileRef = FA7756A61263598300CC8838 /* DDRange.h */; };
-		FA7756C01263598300CC8838 /* DDRange.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7756A71263598300CC8838 /* DDRange.m */; };
+		FA7756C01263598300CC8838 /* DDRange.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7756A71263598300CC8838 /* DDRange.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FA7756C11263598300CC8838 /* HTTPAsyncFileResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = FA7756A81263598300CC8838 /* HTTPAsyncFileResponse.h */; };
-		FA7756C21263598300CC8838 /* HTTPAsyncFileResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7756A91263598300CC8838 /* HTTPAsyncFileResponse.m */; };
+		FA7756C21263598300CC8838 /* HTTPAsyncFileResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7756A91263598300CC8838 /* HTTPAsyncFileResponse.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FA7756C31263598300CC8838 /* HTTPAuthenticationRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = FA7756AA1263598300CC8838 /* HTTPAuthenticationRequest.h */; };
-		FA7756C41263598300CC8838 /* HTTPAuthenticationRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7756AB1263598300CC8838 /* HTTPAuthenticationRequest.m */; };
+		FA7756C41263598300CC8838 /* HTTPAuthenticationRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7756AB1263598300CC8838 /* HTTPAuthenticationRequest.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FA7756C51263598300CC8838 /* HTTPConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = FA7756AC1263598300CC8838 /* HTTPConnection.h */; };
-		FA7756C61263598300CC8838 /* HTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7756AD1263598300CC8838 /* HTTPConnection.m */; };
+		FA7756C61263598300CC8838 /* HTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7756AD1263598300CC8838 /* HTTPConnection.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FA7756C71263598300CC8838 /* HTTPDynamicFileResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = FA7756AE1263598300CC8838 /* HTTPDynamicFileResponse.h */; };
-		FA7756C81263598300CC8838 /* HTTPDynamicFileResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7756AF1263598300CC8838 /* HTTPDynamicFileResponse.m */; };
+		FA7756C81263598300CC8838 /* HTTPDynamicFileResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7756AF1263598300CC8838 /* HTTPDynamicFileResponse.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FA7756C91263598300CC8838 /* HTTPResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = FA7756B01263598300CC8838 /* HTTPResponse.h */; };
-		FA7756CA1263598300CC8838 /* HTTPResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7756B11263598300CC8838 /* HTTPResponse.m */; };
+		FA7756CA1263598300CC8838 /* HTTPResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7756B11263598300CC8838 /* HTTPResponse.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FA7756CB1263598300CC8838 /* HTTPServer.h in Headers */ = {isa = PBXBuildFile; fileRef = FA7756B21263598300CC8838 /* HTTPServer.h */; };
-		FA7756CC1263598300CC8838 /* HTTPServer.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7756B31263598300CC8838 /* HTTPServer.m */; };
+		FA7756CC1263598300CC8838 /* HTTPServer.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7756B31263598300CC8838 /* HTTPServer.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FA7756CF1263598300CC8838 /* WebSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = FA7756B71263598300CC8838 /* WebSocket.h */; };
-		FA7756D01263598300CC8838 /* WebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7756B81263598300CC8838 /* WebSocket.m */; };
+		FA7756D01263598300CC8838 /* WebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7756B81263598300CC8838 /* WebSocket.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FA94AF64124A685900AE8ADB /* close.png in Resources */ = {isa = PBXBuildFile; fileRef = FA94AF62124A684F00AE8ADB /* close.png */; };
 		FA94AF65124A685900AE8ADB /* close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA94AF63124A684F00AE8ADB /* close@2x.png */; };
 		FAB6E05012402A6E00DF64C9 /* UIDevice-Hardware.h in Headers */ = {isa = PBXBuildFile; fileRef = FAB6E04E12402A6E00DF64C9 /* UIDevice-Hardware.h */; };
-		FAB6E05112402A6E00DF64C9 /* UIDevice-Hardware.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB6E04F12402A6E00DF64C9 /* UIDevice-Hardware.m */; };
+		FAB6E05112402A6E00DF64C9 /* UIDevice-Hardware.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB6E04F12402A6E00DF64C9 /* UIDevice-Hardware.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FAC9732C12886BA8001567EB /* MRAID_Standard_JS_Stub.html in Resources */ = {isa = PBXBuildFile; fileRef = FAC9730E12886680001567EB /* MRAID_Standard_JS_Stub.html */; };
 		FACA43901287596100261A12 /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = FACCB0C71283290000B65BD6 /* back.png */; };
 		FACA43911287596100261A12 /* back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FACCB0C81283290000B65BD6 /* back@2x.png */; };
@@ -59,15 +59,15 @@
 		FACA43941287596100261A12 /* refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = FACCB0CB1283290000B65BD6 /* refresh.png */; };
 		FACA43951287596100261A12 /* refresh@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FACCB0CC1283290000B65BD6 /* refresh@2x.png */; };
 		FACA4446128765CF00261A12 /* UIColor-Expanded.h in Headers */ = {isa = PBXBuildFile; fileRef = FACA4444128765CF00261A12 /* UIColor-Expanded.h */; };
-		FACA4447128765CF00261A12 /* UIColor-Expanded.m in Sources */ = {isa = PBXBuildFile; fileRef = FACA4445128765CF00261A12 /* UIColor-Expanded.m */; };
+		FACA4447128765CF00261A12 /* UIColor-Expanded.m in Sources */ = {isa = PBXBuildFile; fileRef = FACA4445128765CF00261A12 /* UIColor-Expanded.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FAD232FE1268A93E00921D13 /* MRAIDLocalServer.h in Headers */ = {isa = PBXBuildFile; fileRef = FAD232FC1268A93E00921D13 /* MRAIDLocalServer.h */; };
 		FAD232FF1268A93E00921D13 /* MRAIDLocalServer.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD232FD1268A93E00921D13 /* MRAIDLocalServer.m */; };
 		FAD233BC1268EF1B00921D13 /* FMDatabase.h in Headers */ = {isa = PBXBuildFile; fileRef = FAD233B61268EF1B00921D13 /* FMDatabase.h */; };
-		FAD233BD1268EF1B00921D13 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD233B71268EF1B00921D13 /* FMDatabase.m */; };
+		FAD233BD1268EF1B00921D13 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD233B71268EF1B00921D13 /* FMDatabase.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FAD233BE1268EF1B00921D13 /* FMDatabaseAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = FAD233B81268EF1B00921D13 /* FMDatabaseAdditions.h */; };
-		FAD233BF1268EF1B00921D13 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD233B91268EF1B00921D13 /* FMDatabaseAdditions.m */; };
+		FAD233BF1268EF1B00921D13 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD233B91268EF1B00921D13 /* FMDatabaseAdditions.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FAD233C01268EF1B00921D13 /* FMResultSet.h in Headers */ = {isa = PBXBuildFile; fileRef = FAD233BA1268EF1B00921D13 /* FMResultSet.h */; };
-		FAD233C11268EF1B00921D13 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD233BB1268EF1B00921D13 /* FMResultSet.m */; };
+		FAD233C11268EF1B00921D13 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD233BB1268EF1B00921D13 /* FMResultSet.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FAD233D6126900A800921D13 /* MRAIDDataAccessLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = FAD233D4126900A800921D13 /* MRAIDDataAccessLayer.h */; };
 		FAD233D7126900A800921D13 /* MRAIDDataAccessLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD233D5126900A800921D13 /* MRAIDDataAccessLayer.m */; };
 		FAD28BE912381B2A00562D0B /* MRAIDJavascriptBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = FAD28BBE12381B2A00562D0B /* MRAIDJavascriptBridge.h */; };
@@ -75,23 +75,23 @@
 		FAD28BEB12381B2A00562D0B /* MRAIDView.h in Headers */ = {isa = PBXBuildFile; fileRef = FAD28BC112381B2A00562D0B /* MRAIDView.h */; };
 		FAD28BEC12381B2A00562D0B /* MRAIDView.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD28BC212381B2A00562D0B /* MRAIDView.m */; };
 		FAD28BED12381B2A00562D0B /* ASIAuthenticationDialog.h in Headers */ = {isa = PBXBuildFile; fileRef = FAD28BC612381B2A00562D0B /* ASIAuthenticationDialog.h */; };
-		FAD28BEE12381B2A00562D0B /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD28BC712381B2A00562D0B /* ASIAuthenticationDialog.m */; };
+		FAD28BEE12381B2A00562D0B /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD28BC712381B2A00562D0B /* ASIAuthenticationDialog.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FAD28BEF12381B2A00562D0B /* ASICacheDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = FAD28BC812381B2A00562D0B /* ASICacheDelegate.h */; };
 		FAD28BF012381B2A00562D0B /* ASIDownloadCache.h in Headers */ = {isa = PBXBuildFile; fileRef = FAD28BC912381B2A00562D0B /* ASIDownloadCache.h */; };
-		FAD28BF112381B2A00562D0B /* ASIDownloadCache.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD28BCA12381B2A00562D0B /* ASIDownloadCache.m */; };
+		FAD28BF112381B2A00562D0B /* ASIDownloadCache.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD28BCA12381B2A00562D0B /* ASIDownloadCache.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FAD28BF212381B2A00562D0B /* ASIFormDataRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = FAD28BCB12381B2A00562D0B /* ASIFormDataRequest.h */; };
-		FAD28BF312381B2A00562D0B /* ASIFormDataRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD28BCC12381B2A00562D0B /* ASIFormDataRequest.m */; };
+		FAD28BF312381B2A00562D0B /* ASIFormDataRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD28BCC12381B2A00562D0B /* ASIFormDataRequest.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FAD28BF412381B2A00562D0B /* ASIHTTPRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = FAD28BCD12381B2A00562D0B /* ASIHTTPRequest.h */; };
-		FAD28BF512381B2A00562D0B /* ASIHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD28BCE12381B2A00562D0B /* ASIHTTPRequest.m */; };
+		FAD28BF512381B2A00562D0B /* ASIHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD28BCE12381B2A00562D0B /* ASIHTTPRequest.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FAD28BF612381B2A00562D0B /* ASIHTTPRequestConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = FAD28BCF12381B2A00562D0B /* ASIHTTPRequestConfig.h */; };
 		FAD28BF712381B2A00562D0B /* ASIHTTPRequestDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = FAD28BD012381B2A00562D0B /* ASIHTTPRequestDelegate.h */; };
 		FAD28BF812381B2A00562D0B /* ASIInputStream.h in Headers */ = {isa = PBXBuildFile; fileRef = FAD28BD112381B2A00562D0B /* ASIInputStream.h */; };
-		FAD28BF912381B2A00562D0B /* ASIInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD28BD212381B2A00562D0B /* ASIInputStream.m */; };
+		FAD28BF912381B2A00562D0B /* ASIInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD28BD212381B2A00562D0B /* ASIInputStream.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FAD28BFA12381B2A00562D0B /* ASINetworkQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = FAD28BD312381B2A00562D0B /* ASINetworkQueue.h */; };
-		FAD28BFB12381B2A00562D0B /* ASINetworkQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD28BD412381B2A00562D0B /* ASINetworkQueue.m */; };
+		FAD28BFB12381B2A00562D0B /* ASINetworkQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD28BD412381B2A00562D0B /* ASINetworkQueue.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FAD28BFC12381B2A00562D0B /* ASIProgressDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = FAD28BD512381B2A00562D0B /* ASIProgressDelegate.h */; };
 		FAD28BFD12381B2A00562D0B /* Reachability.h in Headers */ = {isa = PBXBuildFile; fileRef = FAD28BD612381B2A00562D0B /* Reachability.h */; };
-		FAD28BFE12381B2A00562D0B /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD28BD712381B2A00562D0B /* Reachability.m */; };
+		FAD28BFE12381B2A00562D0B /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD28BD712381B2A00562D0B /* Reachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FAD28C6E12381DFF00562D0B /* MRAID_Standard_HTML_Stub.html in Resources */ = {isa = PBXBuildFile; fileRef = FAD28C6D12381DF900562D0B /* MRAID_Standard_HTML_Stub.html */; };
 		FAD3FA4D126CA0B100468F35 /* 1.sql in Resources */ = {isa = PBXBuildFile; fileRef = FAD3F9C7126C84B300468F35 /* 1.sql */; };
 		FAD3FAAB126CABD000468F35 /* 2.sql in Resources */ = {isa = PBXBuildFile; fileRef = FAD3FAA9126CABB100468F35 /* 2.sql */; };
@@ -854,6 +854,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/ORMMA.dst;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -862,7 +863,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = EmediateSDK_Prefix.pch;
 				INSTALL_PATH = /usr/local/lib;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = EmediateSDK;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 armv7s";
@@ -873,12 +874,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				DSTROOT = /tmp/ORMMA.dst;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = EmediateSDK_Prefix.pch;
 				INSTALL_PATH = /usr/local/lib;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = EmediateSDK;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 armv7s";
@@ -893,7 +895,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-all_load",
@@ -912,7 +914,7 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_LDFLAGS = (
 					"-all_load",
 					"-ObjC",
