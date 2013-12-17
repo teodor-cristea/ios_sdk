@@ -101,7 +101,7 @@ typedef enum MRAIDViewStateEnum
 @property( nonatomic, assign ) CGSize maxSize;
 @property( nonatomic, assign ) BOOL allowLocationServices;
 @property( nonatomic, assign, readonly ) BOOL isMRAIDAd;
-@property( nonatomic, weak ) CLLocation* userLocation;
+@property( nonatomic, strong ) CLLocation* userLocation;
 
 - (void)loadCreative:(NSURL *)url withPreloadCount:(NSInteger)count;
 
