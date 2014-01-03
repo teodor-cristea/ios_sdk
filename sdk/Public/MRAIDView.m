@@ -341,9 +341,8 @@ shouldStartLoadWithRequest:(NSURLRequest *)request
 	}
 	if ( [@"about:blank" isEqualToString:fullUrl] )
 	{
-		// don't bother loading the empty page
-		NSLog( @"IFrame Detected" );
-		return NO;
+		// changed behavior 2014-01-03: DO load empty pages as they may in fact be redirects.
+		return YES;
 	}
 	
 	// handle mailto and tel
