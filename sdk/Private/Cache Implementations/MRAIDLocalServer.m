@@ -713,6 +713,10 @@ NSString * const kMRAIDLocalServerResourceType = @"resource";
 
 - (void)requestFinished:(ASIHTTPRequest *)request
 {
+    if ([UIApplication sharedApplication].applicationState != UIApplicationStateActive) {
+        return;
+    }
+    
 	// determine the base URL to use for storage
 	NSURL *baseURL = [request originalURL];
 
