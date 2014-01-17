@@ -19,7 +19,7 @@
 {
 @private
 	// the delegate for this browser
-	id<MRAIDWebBrowserViewControllerDelegate> __weak m_browserDelegate;
+	id<MRAIDWebBrowserViewControllerDelegate> m_browserDelegate;
 	
 	// user interface components
 	NSURL *m_url;
@@ -33,18 +33,18 @@
 	UIActivityIndicatorView *m_pageLoadingIndicator;
 	UIButton *m_closeButton;
 }
-@property( nonatomic, strong ) IBOutlet UIWebView *webView;
-@property( nonatomic, strong ) IBOutlet UIView *browserNavigationBar;
-@property( nonatomic, strong ) IBOutlet UIImageView *addressBarBackground;
-@property( nonatomic, strong ) IBOutlet UIButton *backButton;
-@property( nonatomic, strong ) IBOutlet UIButton *forwardButton;
-@property( nonatomic, strong ) IBOutlet UIButton *refreshButton;
-@property( nonatomic, strong ) IBOutlet UIButton *safariButton;
-@property( nonatomic, strong ) IBOutlet UIActivityIndicatorView *pageLoadingIndicator;
-@property( nonatomic, strong ) IBOutlet UIButton *closeButton;
+@property( nonatomic, retain ) IBOutlet UIWebView *webView;
+@property( nonatomic, retain ) IBOutlet UIView *browserNavigationBar;
+@property( nonatomic, retain ) IBOutlet UIImageView *addressBarBackground;
+@property( nonatomic, retain ) IBOutlet UIButton *backButton;
+@property( nonatomic, retain ) IBOutlet UIButton *forwardButton;
+@property( nonatomic, retain ) IBOutlet UIButton *refreshButton;
+@property( nonatomic, retain ) IBOutlet UIButton *safariButton;
+@property( nonatomic, retain ) IBOutlet UIActivityIndicatorView *pageLoadingIndicator;
+@property( nonatomic, retain ) IBOutlet UIButton *closeButton;
 
 // the MRAID view
-@property( nonatomic, weak ) id<MRAIDWebBrowserViewControllerDelegate> browserDelegate;
+@property( nonatomic, assign ) id<MRAIDWebBrowserViewControllerDelegate> browserDelegate;
 
 // the URL to load
 @property( nonatomic, copy ) NSURL *URL;

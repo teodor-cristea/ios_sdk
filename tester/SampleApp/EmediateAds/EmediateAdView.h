@@ -17,8 +17,8 @@
   NSTimer *refreshTimer; //Refresh timer which triggers at the specified refreshRate time regularly.
 }
 
-@property (nonatomic, strong) NSString *baseURL;  //base URL for ads.
-@property (nonatomic, strong) NSDictionary *parameters; //parameters to load ads
+@property (nonatomic, retain) NSString *baseURL;  //base URL for ads.
+@property (nonatomic, retain) NSDictionary *parameters; //parameters to load ads
 @property (nonatomic) NSInteger refreshRate; //rate at which ad refreshes
 @property (nonatomic) NSInteger preloadCount; //number of pre-loaded ads to increase performace when loading and displaying ad content. This will also make it possible to present ads offline.
 

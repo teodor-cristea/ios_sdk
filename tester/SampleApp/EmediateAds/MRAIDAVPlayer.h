@@ -34,8 +34,8 @@
 	LoadingView *loadingView;
 	BOOL isAudio;
 }
-@property(nonatomic, strong) id delegate;
-@property(nonatomic, strong) MPMoviePlayerController* mraidPlayer;
+@property(nonatomic, retain) id delegate;
+@property(nonatomic, retain) MPMoviePlayerController* mraidPlayer;
 
 -(void)playVideo:(NSURL *)videoURL attachTo:(UIView*)parentView autoPlay:(BOOL)autoplay showControls:(BOOL)showcontrols repeat:(BOOL)autorepeat fullScreenMode:(BOOL)fullScreen autoExit:(BOOL)exit;
 
