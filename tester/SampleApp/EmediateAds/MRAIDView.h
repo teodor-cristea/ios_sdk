@@ -38,7 +38,7 @@ typedef enum MRAIDViewStateEnum
 @private
 	UIDevice *m_currentDevice;
 	MRAIDJavascriptBridge *m_javascriptBridge;
-	id<MRAIDViewDelegate> m_mraidDelegate;
+	id<MRAIDViewDelegate> __weak m_mraidDelegate;
 	MRAIDViewState m_currentState;
 	NSError *m_lastError;
 	BOOL m_adVisible;
@@ -92,16 +92,16 @@ typedef enum MRAIDViewStateEnum
 @protected
     CLLocation*         userLocation;
 }
-@property( nonatomic, assign ) id<MRAIDViewDelegate> mraidDelegate;
+@property( nonatomic, weak ) id<MRAIDViewDelegate> mraidDelegate;
 @property( nonatomic, copy ) NSString *htmlStub;
 @property( nonatomic, copy ) NSURL *creativeURL;
 @property( nonatomic, copy ) NSURL *creativeBaseURL;
-@property( nonatomic, retain, readonly ) NSError *lastError;
+@property( nonatomic, strong, readonly ) NSError *lastError;
 @property( nonatomic, assign, readonly ) MRAIDViewState currentState;
 @property( nonatomic, assign ) CGSize maxSize;
 @property( nonatomic, assign ) BOOL allowLocationServices;
 @property( nonatomic, assign, readonly ) BOOL isMRAIDAd;
-@property( nonatomic, assign ) CLLocation* userLocation;
+@property( nonatomic, strong ) CLLocation* userLocation;
 
 - (void)loadCreative:(NSURL *)url withPreloadCount:(NSInteger)count;
 
