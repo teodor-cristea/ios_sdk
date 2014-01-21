@@ -181,7 +181,7 @@
             [new_eas_uid appendFormat:@"%lu", unix_time];
             [new_eas_uid appendFormat:@"%09lu", r]; // pad to nine digits
             
-            [[NSUserDefaults standardUserDefaults] setObject:eas_uid forKey:@"EAS_UID"];
+            [[NSUserDefaults standardUserDefaults] setObject:new_eas_uid forKey:@"EAS_UID"];
             [[NSUserDefaults standardUserDefaults] synchronize];
             [completeURLString appendFormat:@"%@=%@", @"eas_uid", new_eas_uid];
         }
