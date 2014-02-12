@@ -111,6 +111,9 @@
             
         }else{// wait for user location
             //            NSLog(@"waiting");
+            if ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusNotDetermined){
+                [self turnONLocationManager];
+            }
             [self performSelector:@selector(loadCreativeWithParameters
                                             :) withObject:params afterDelay:0.2f];
             
@@ -129,6 +132,10 @@
 
 - (void)loadCreativeInternalWithParameters:(NSDictionary *)params
 {
+    if([CLLocationManager locationServicesEnabled] &&
+       [CLLocationManager authorizationStatus] != kCLAuthorizationStatusDenied){
+        [self turnOFFLocationManager];
+    }
     if ((params != nil) && (parameters == nil)) //When loading the ad for the 1st time.
     {
         self.parameters = params;

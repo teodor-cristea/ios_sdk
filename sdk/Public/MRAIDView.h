@@ -133,6 +133,9 @@ typedef enum MRAIDViewStateEnum
 // This is useful when MRAIDView are embedded in a scrolling view and need to be loaded in advance.
 // Calling these method will let the MRAIDView set the proper default ad position based on the currently displayed view.
 - (void)mraidViewDisplayed:(BOOL)isDisplayed;
+
+- (void)turnONLocationManager;
+- (void)turnOFFLocationManager;
 @end
 
 
