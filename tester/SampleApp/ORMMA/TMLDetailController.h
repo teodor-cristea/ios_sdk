@@ -10,13 +10,13 @@
 
 @interface TMLDetailController : UIViewController <UITextFieldDelegate>
 {
-  UILabel *adNameLabel;
-  UITextField *adNameField;
-  UILabel *baseURLLabel;
-  UITextField *baseURLField;
-  UILabel *paramsLabel;
-  UITextField *parametersField;
-  UILabel *hintLabel;
+    UILabel *adNameLabel;
+    UITextField *adNameField;
+    UILabel *baseURLLabel;
+    UITextField *baseURLField;
+    UILabel *paramsLabel;
+    UITextField *parametersField;
+    UILabel *hintLabel;
 }
 
 @end

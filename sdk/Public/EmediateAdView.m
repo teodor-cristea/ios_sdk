@@ -191,15 +191,18 @@
             srandom(unix_time);
             long r = (long)arc4random_uniform(999999999); // max nine digits
             
-            NSMutableString *eas_uid = [[NSMutableString alloc] init];
-            [eas_uid appendFormat:@"%lu", unix_time];
-            [eas_uid appendFormat:@"%09lu", r]; // pad to nine digits
+            NSMutableString *new_eas_uid = [[NSMutableString alloc] init];
+            [new_eas_uid appendFormat:@"%lu", unix_time];
+            [new_eas_uid appendFormat:@"%09lu", r]; // pad to nine digits
             
-            [[NSUserDefaults standardUserDefaults] setObject:eas_uid forKey:@"EAS_UID"];
+            [[NSUserDefaults standardUserDefaults] setObject:new_eas_uid forKey:@"EAS_UID"];
             [[NSUserDefaults standardUserDefaults] synchronize];
+            [completeURLString appendFormat:@"%@=%@", @"eas_uid", new_eas_uid];
         }
-        
-        [completeURLString appendFormat:@"%@=%@", @"eas_uid", eas_uid];
+        else
+        {
+            [completeURLString appendFormat:@"%@=%@", @"eas_uid", eas_uid];
+        }
         
         NSURL *url = [[NSURL alloc] initWithString:completeURLString];
         [self loadCreative:url withPreloadCount:self.preloadCount];
