@@ -2238,11 +2238,22 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
 #pragma mark -
 #pragma mark CLLocationManagerDelegate
 
+- (void)turnOFFLocationManager { NSLog(@"Turning location manager OFF"); [locationManager stopUpdatingLocation]; self.userLocation = nil; }
+- (void)turnONLocationManager { NSLog(@"Turning location manager ON"); [locationManager startUpdatingLocation]; }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation
            fromLocation:(CLLocation *)oldLocation {
     
+    // filter location
+    if (!newLocation || !newLocation.coordinate.latitude || !newLocation.coordinate.longitude || newLocation.horizontalAccuracy < 0)
+        return;
+    
+    // wait for a more recent reading
+    if (abs([newLocation.timestamp timeIntervalSinceNow]) >= 60)
+        return;
+    
     self.userLocation = newLocation;
+    NSLog(@"User location was set!");
 }
 
 #pragma mark -

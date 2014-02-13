@@ -12,12 +12,18 @@
 #define K_OK          1
 #define K_CANCEL      0
 
+@interface EmediateAdView ()
+//private
+@property (nonatomic, strong) NSTimer *refreshTimer; //timer to refresh ads
+@end
+
 @implementation EmediateAdView
 
 @synthesize baseURL;
 @synthesize refreshRate;
 @synthesize preloadCount;
 @synthesize parameters;
+@synthesize refreshTimer;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -25,6 +31,7 @@
     if (self)
     {
         // Initialization code
+        refreshTimer = nil;
         parameters = nil;
         refreshRate = 60;
         preloadCount = 5;
@@ -48,10 +55,10 @@
 
 - (void)stopRefresh
 {
-    if (refreshTimer && [refreshTimer isValid])
+    if (self.refreshTimer && [self.refreshTimer isValid])
     {
-        [refreshTimer invalidate];
-        refreshTimer = nil;
+        [self.refreshTimer invalidate];
+        self.refreshTimer = nil;
     }
 }
 
@@ -59,10 +66,10 @@
 {
     [self dismissAlerts];
     
-    if (refreshTimer && [refreshTimer isValid])
+    if (self.refreshTimer && [self.refreshTimer isValid])
     {
-        [refreshTimer invalidate];
-        refreshTimer = nil;
+        [self.refreshTimer invalidate];
+        self.refreshTimer = nil;
     }
 }
 
@@ -80,10 +87,10 @@
 {
     self.parameters = nil;
     
-    if (refreshTimer && [refreshTimer isValid])
+    if (self.refreshTimer && [self.refreshTimer isValid])
     {
-        [refreshTimer invalidate];
-        refreshTimer = nil;
+        [self.refreshTimer invalidate];
+        self.refreshTimer = nil;
     }
 }
 
@@ -104,6 +111,9 @@
             
         }else{// wait for user location
             //            NSLog(@"waiting");
+            if ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusNotDetermined){
+                [self turnONLocationManager];
+            }
             [self performSelector:@selector(loadCreativeWithParameters
                                             :) withObject:params afterDelay:0.2f];
             
@@ -122,6 +132,10 @@
 
 - (void)loadCreativeInternalWithParameters:(NSDictionary *)params
 {
+    if([CLLocationManager locationServicesEnabled] &&
+       [CLLocationManager authorizationStatus] != kCLAuthorizationStatusDenied){
+        [self turnOFFLocationManager];
+    }
     if ((params != nil) && (parameters == nil)) //When loading the ad for the 1st time.
     {
         self.parameters = params;
@@ -203,9 +217,9 @@
 
 - (void)fireAdWillShow
 {
-    if (!refreshTimer && self.refreshRate > 0)
+    if (!self.refreshTimer && self.refreshRate > 0)
     {
-        refreshTimer = [NSTimer scheduledTimerWithTimeInterval:self.refreshRate target:self selector:@selector(refreshCreative) userInfo:nil repeats:YES];
+        self.refreshTimer = [NSTimer scheduledTimerWithTimeInterval:self.refreshRate target:self selector:@selector(refreshCreative) userInfo:nil repeats:YES];
     }
     
     if([super respondsToSelector:@selector(fireAdWillShowCalledFromChildView)]){
@@ -215,10 +229,10 @@
 
 - (void)fireAppShouldSuspend
 {
-    if (refreshTimer)
+    if (self.refreshTimer)
     {
-        [refreshTimer invalidate];
-        refreshTimer = nil;
+        [self.refreshTimer invalidate];
+        self.refreshTimer = nil;
     }
     if([super respondsToSelector:@selector(fireAppShouldSuspendCalledFromChildView)]){
         [super performSelector:@selector(fireAppShouldSuspendCalledFromChildView)];
@@ -228,15 +242,15 @@
 
 - (void)fireAppShouldResume
 {
-    if (refreshTimer)
+    if (self.refreshTimer)
     {
-        [refreshTimer invalidate];
-        refreshTimer = nil;
+        [self.refreshTimer invalidate];
+        self.refreshTimer = nil;
     }
     
     if (self.refreshRate > 0)
     {
-        refreshTimer = [NSTimer scheduledTimerWithTimeInterval:self.refreshRate target:self selector:@selector(refreshCreative) userInfo:nil repeats:YES];
+        self.refreshTimer = [NSTimer scheduledTimerWithTimeInterval:self.refreshRate target:self selector:@selector(refreshCreative) userInfo:nil repeats:YES];
     }
     
     if([super respondsToSelector:@selector(fireAppShouldResumeCalledFromChildView)]){
