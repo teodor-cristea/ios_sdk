@@ -13,6 +13,10 @@
 #include <sys/time.h>
 
 @interface MRAIDLocalServer ()
+{
+    //added by ico
+    BOOL serverIsRunning;
+}
 
 - (NSString *)resourcePathForCreative:(NSString *)creativeId
 							   forURL:(NSURL *)url;
@@ -140,7 +144,7 @@ NSString * const kMRAIDLocalServerResourceType = @"resource";
 		m_server = [[HTTPServer alloc] init];
 		NSURL *url = [NSURL fileURLWithPath:[self cacheActiveRoot]];
 		[m_server setDocumentRoot:url];
-		[m_server start:&error];
+		serverIsRunning = [m_server start:&error];
 		      
 		// make sure the root paths exist
 		NSFileManager *fm = [NSFileManager defaultManager];
@@ -160,9 +164,13 @@ NSString * const kMRAIDLocalServerResourceType = @"resource";
 			   selector:@selector(handleDidBecomeActiveNotification:)
 				   name:UIApplicationDidBecomeActiveNotification
 				 object:nil];
+        
+        /*
+         ico - let's try using UIApplicationDidEnterBackgroundNotification instead of UIApplicationWillResignActiveNotification;
+         */
 		[nc addObserver:self
 			   selector:@selector(handleDidResignActiveNotification:)
-				   name:UIApplicationWillResignActiveNotification
+				   name:/*UIApplicationWillResignActiveNotification*/UIApplicationDidEnterBackgroundNotification
 				 object:nil];
 	}
 	return self;
@@ -908,11 +916,17 @@ NSString * const kMRAIDLocalServerResourceType = @"resource";
 {
 	@synchronized( self )
 	{
-		// start server
-        NSError *error = nil;
-		[m_server start:&error];
-        
-        NSLog(@"Server started");
+        /*
+         ico - we need this because UIApplicationDidBecomeActiveNotification can be fired multiple times; maybe it's ok to start an already started server, but it's better to avoid this
+         */
+        if (serverIsRunning == NO)
+        {
+            // start server
+            NSError *error = nil;
+            serverIsRunning = [m_server start:&error];
+            
+            NSLog(@"ico - Server started");
+        }
 	}
 }
 
@@ -922,8 +936,9 @@ NSString * const kMRAIDLocalServerResourceType = @"resource";
 	{
 		// shutdown server
 		[m_server stop];
+        serverIsRunning = NO;
         
-        NSLog(@"Server stopped");
+        NSLog(@"ico - Server stopped");
 	}
 }
 
