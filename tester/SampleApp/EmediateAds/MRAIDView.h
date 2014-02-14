@@ -133,6 +133,9 @@ typedef enum MRAIDViewStateEnum
 // This is useful when MRAIDView are embedded in a scrolling view and need to be loaded in advance.
 // Calling these method will let the MRAIDView set the proper default ad position based on the currently displayed view.
 - (void)mraidViewDisplayed:(BOOL)isDisplayed;
+
+- (void)turnONLocationManager;
+- (void)turnOFFLocationManager;
 @end
 
 
@@ -173,7 +176,11 @@ typedef enum MRAIDViewStateEnum
 - (void)didResizeAd:(MRAIDView *)adView
 			  toSize:(CGSize)size;
 
+// Called just before a creative is loaded for the specified adView
+- (void)adView:(MRAIDView *)adView willLoadAdWithContent:(NSString *)adContent;
 
+// Called just after a creative is loaded for the specified adView
+- (void)adView:(MRAIDView *)adView didLoadAdWithContent:(NSString *)adContent;
 
 // Called just before to an ad is displayed
 - (void)adWillShow:(MRAIDView *)adView;
