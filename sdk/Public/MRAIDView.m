@@ -1497,11 +1497,28 @@ lockOrientation:(BOOL)allowOrientationChange
 #pragma mark -
 #pragma mark Cache Delegate
 
+- (void)willLoadCreativeWithContent:(NSString *)content
+{
+    if ( ( self.mraidDelegate != nil ) &&
+        ( [self.mraidDelegate respondsToSelector:@selector(adView:willLoadAdWithContent:)] ) )
+    {
+        [self.mraidDelegate adView:self willLoadAdWithContent:content];
+    }
+}
+
+- (void)didLoadCreativeWithContent:(NSString *)content
+{
+    if ( ( self.mraidDelegate != nil ) &&
+        ( [self.mraidDelegate respondsToSelector:@selector(adView:didLoadAdWithContent:)] ) )
+    {
+        [self.mraidDelegate adView:self didLoadAdWithContent:content];
+    }
+}
+
 - (void)cacheFailed:(NSURL *)baseURL
 		  withError:(NSError *)error
 {
 }
-
 
 - (void)cachedCreative:(NSURL *)creativeURL
 				 onURL:(NSURL *)url
