@@ -176,7 +176,11 @@ typedef enum MRAIDViewStateEnum
 - (void)didResizeAd:(MRAIDView *)adView
 			  toSize:(CGSize)size;
 
+// Called just before a creative is loaded for the specified adView
+- (void)adView:(MRAIDView *)adView willLoadAdWithContent:(NSString *)adContent;
 
+// Called just after a creative is loaded for the specified adView
+- (void)adView:(MRAIDView *)adView didLoadAdWithContent:(NSString *)adContent;
 
 // Called just before to an ad is displayed
 - (void)adWillShow:(MRAIDView *)adView;

@@ -450,6 +450,18 @@
   }
 }
 
+// Called just before a creative is loaded
+- (void)adView:(MRAIDView *)adView willLoadAdWithContent:(NSString *)adContent
+{
+    NSLog(@"will load creative with content: %@", adContent);
+}
+
+// Called just after a creative was loaded
+- (void)adView:(MRAIDView *)adView didLoadAdWithContent:(NSString *)adContent
+{
+    NSLog(@"did load creative with content: %@", adContent);
+}
+
 // Called just before an ad closes
 - (void)adWillClose:(MRAIDView *)anAdView
 {

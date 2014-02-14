@@ -50,6 +50,13 @@
 - (void)showCachedCreative:(NSURL *)baseURL
                      onURL:(NSURL *)url
                     withId:(NSString *)creativeId;
+
+// called before a cached creative is about to be loaded from disk
+- (void)willLoadCreativeWithContent:(NSString *)content;
+
+// called just after a cached creative was loaded from disk
+- (void)didLoadCreativeWithContent:(NSString *)content;
+
 @end
 
 

@@ -330,11 +330,12 @@ NSString * const kMRAIDLocalServerResourceType = @"resource";
     if (nextCreativeId && [nextCreativeId length])
     {
         // there is something in cache, use it
-        // move cached creative to active root directory
+        // move cached creative to active root directory (and fire up delegate methods for will/did load creative)
         NSLog( @"Creative found in cache: %@", nextCreativeId );
         NSURL *creativeURL = [self moveCachedCreativeToActiveDirectoryForCampaignBaseURL:baseURL
                                                                                   withId:nextCreativeId
-                                                                              andBaseURL:url];
+                                                                              andBaseURL:url
+                                                                             forDelegate:delegate];
         
         // notify the delegate to show this creative
         [delegate showCachedCreative:url
@@ -568,6 +569,7 @@ NSString * const kMRAIDLocalServerResourceType = @"resource";
 - (NSURL *)moveCachedCreativeToActiveDirectoryForCampaignBaseURL:(NSURL *)campaignRootURL
                                                        withId:(NSString *)creativeId
                                                    andBaseURL:(NSURL *)url
+                                                     forDelegate:(id<MRAIDLocalServerDelegate>)delegate
 {
     NSError *error = nil;
     NSURL *creativeURL = nil;
@@ -577,6 +579,13 @@ NSString * const kMRAIDLocalServerResourceType = @"resource";
     NSString *activeRootCampaign = [root stringByAppendingPathComponent:campaignPathComponent];
 	NSString *source = [[[MRAIDLocalServer rootDirectory] stringByAppendingPathComponent:campaignPathComponent] stringByAppendingPathComponent:creativeId];
     NSString *destination = [activeRootCampaign stringByAppendingPathComponent:creativeId];
+    NSString *adContent = [NSString stringWithContentsOfFile:[[source stringByAppendingPathComponent:@"index"] stringByAppendingPathExtension:@"html"] encoding:NSUTF8StringEncoding error:NULL];
+    
+    // notify delegate that a cached creative is about to be loaded
+    if (delegate && [delegate respondsToSelector:@selector(willLoadCreativeWithContent:)])
+    {
+        [delegate willLoadCreativeWithContent:adContent];
+    }
     
     // see if root exists
 	if (![fm fileExistsAtPath:root])
@@ -648,6 +657,12 @@ NSString * const kMRAIDLocalServerResourceType = @"resource";
         NSLog(@"Built new URL for loading ad from active campaign directory: %@", urlString);
 
         creativeURL = [NSURL URLWithString:urlString];
+        
+        // notify delegate that the cached creative was just loaded
+        if (delegate && [delegate respondsToSelector:@selector(didLoadCreativeWithContent:)])
+        {
+            [delegate didLoadCreativeWithContent:adContent];
+        }
     }else
     {
         NSLog(@"Failed to move cached creative to active root cache. Reason: %@", [error description]);
