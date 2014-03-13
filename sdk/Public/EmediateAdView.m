@@ -103,39 +103,35 @@
 {
     //    [self loadCreativeInternalWithParameters:params];
     
-    if([CLLocationManager locationServicesEnabled] &&
-       [CLLocationManager authorizationStatus] != kCLAuthorizationStatusDenied){
-        if(self.userLocation){ // done waiting
-            //            NSLog(@"done waiting, params = %@",params);
-            [self loadCreativeInternalWithParameters:params];
-            
-        }else{// wait for user location
-            //            NSLog(@"waiting");
-            if ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusNotDetermined){
-                [self turnONLocationManager];
-            }
-            [self performSelector:@selector(loadCreativeWithParameters
-                                            :) withObject:params afterDelay:0.2f];
-            
-            if ((params != nil) && (parameters == nil)) //When loading the ad for the 1st time.
-            {
-                self.parameters = params;
+    if (self.allowLocationServices) {
+        if([CLLocationManager locationServicesEnabled] &&
+           [CLLocationManager authorizationStatus] != kCLAuthorizationStatusDenied){
+            if(self.userLocation){ // done waiting
+                //            NSLog(@"done waiting, params = %@",params);
+                [self loadCreativeInternalWithParameters:params];
+                
+            }else{// wait for user location
+                //            NSLog(@"waiting");
+                if ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusNotDetermined){
+                    [self turnONLocationManager];
+                }
+                [self performSelector:@selector(loadCreativeWithParameters
+                                                :) withObject:params afterDelay:0.2f];
+                
+                if ((params != nil) && (parameters == nil)) //When loading the ad for the 1st time.
+                {
+                    self.parameters = params;
+                }
             }
         }
     }else{
         //        NSLog(@"not wait");
         [self loadCreativeInternalWithParameters:params];
-        
-        
     }
 }
 
 - (void)loadCreativeInternalWithParameters:(NSDictionary *)params
 {
-    if([CLLocationManager locationServicesEnabled] &&
-       [CLLocationManager authorizationStatus] != kCLAuthorizationStatusDenied){
-        [self turnOFFLocationManager];
-    }
     if ((params != nil) && (parameters == nil)) //When loading the ad for the 1st time.
     {
         self.parameters = params;
@@ -169,6 +165,7 @@
                 // use %lf instead of %f to ensure enough precision
                 [completeURLString appendFormat:@"lat=%lf;", self.userLocation.coordinate.latitude];
                 [completeURLString appendFormat:@"lng=%lf;", self.userLocation.coordinate.longitude];
+                NSLog(@"Creative URL after location was appended: %@", completeURLString);
             }
         }
     }
@@ -212,6 +209,11 @@
     if (completeURLString)
     {
         completeURLString = nil;
+    }
+    
+    if([CLLocationManager locationServicesEnabled] &&
+       [CLLocationManager authorizationStatus] != kCLAuthorizationStatusDenied){
+        [self turnOFFLocationManager];
     }
 }
 

@@ -240,16 +240,6 @@ NSString * const kDefaultPositionMRAIDPropertiesFormat = @"{ defaultPosition: { 
 	
 	// setup special protocols
 	m_externalProtocols = [[NSMutableArray alloc] init];
-    
-    {// location
-        
-        locationManager = [CLLocationManager new];
-        locationManager.delegate = self;
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-        locationManager.distanceFilter = kCLDistanceFilterNone;
-        [locationManager startUpdatingLocation];
-        
-    }
 }
 
 
@@ -2271,6 +2261,23 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
     
     self.userLocation = newLocation;
     NSLog(@"User location was set!");
+}
+
+- (void)setAllowLocationServices:(BOOL)_allowLocationServices {
+    m_allowLocationServices = _allowLocationServices;
+    
+    // stop current location manager
+    [locationManager stopUpdatingLocation];
+    locationManager = nil;
+    
+    // location
+    if (m_allowLocationServices){
+        locationManager = [CLLocationManager new];
+        locationManager.delegate = self;
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+        locationManager.distanceFilter = kCLDistanceFilterNone;
+        [locationManager startUpdatingLocation];
+    }
 }
 
 #pragma mark -
