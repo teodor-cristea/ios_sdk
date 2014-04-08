@@ -164,7 +164,7 @@
             if(self.userLocation){
                 // use %lf instead of %f to ensure enough precision
                 [completeURLString appendFormat:@"lat=%lf;", self.userLocation.coordinate.latitude];
-                [completeURLString appendFormat:@"lng=%lf;", self.userLocation.coordinate.longitude];
+                [completeURLString appendFormat:@"lon=%lf;", self.userLocation.coordinate.longitude];
                 NSLog(@"Creative URL after location was appended: %@", completeURLString);
             }
         }
