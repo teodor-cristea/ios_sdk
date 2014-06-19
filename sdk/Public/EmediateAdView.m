@@ -96,7 +96,8 @@
 
 - (void)refreshCreative
 {
-    [self loadCreativeWithParameters:nil];
+    if (!m_loadingAd)
+        [self loadCreativeWithParameters:nil];
 }
 
 - (void)loadCreativeWithParameters:(NSDictionary *)params

@@ -289,16 +289,17 @@ NSString * const kDefaultPositionMRAIDPropertiesFormat = @"{ defaultPosition: { 
 - (void)webView:(UIWebView *)webView 
 didFailLoadWithError:(NSError *)error
 {
-	NSLog( @"Failed to load URL into Web View: %@", error );
-	self.lastError = error;
-	if ( ( self.mraidDelegate != nil ) &&
-		( [self.mraidDelegate respondsToSelector:@selector(failureLoadingAd:)] ) )
-	{
-		[self.mraidDelegate failureLoadingAd:self];
-	}
-	m_loadingAd = NO;
+    if ([error code] != NSURLErrorCancelled) {
+        NSLog( @"Failed to load URL into Web View: %@", error );
+        self.lastError = error;
+        if ( ( self.mraidDelegate != nil ) &&
+            ( [self.mraidDelegate respondsToSelector:@selector(failureLoadingAd:)] ) )
+        {
+            [self.mraidDelegate failureLoadingAd:self];
+        }
+        m_loadingAd = NO;
+    }
 }
-
 
 - (BOOL)webView:(UIWebView *)webView 
 shouldStartLoadWithRequest:(NSURLRequest *)request 
@@ -379,10 +380,14 @@ shouldStartLoadWithRequest:(NSURLRequest *)request
 	}
 	
 	// if the user clicked a non-handled link, open it in a new browser
-	if ( !m_loadingAd )
+    NSString *documentURL = [[request mainDocumentURL] absoluteString];
+    // if url and documentUrl are the same this is a javascript href click
+	if ( !m_loadingAd && (navigationType == UIWebViewNavigationTypeLinkClicked || (navigationType == UIWebViewNavigationTypeOther && [url.absoluteString isEqualToString:documentURL])) )
 	{
-		NSLog( @"Delegating Open to web browser." );
+        NSLog(@"url = %@", url.absoluteString);
+        NSLog(@"document url = %@", documentURL);
 
+		NSLog( @"Delegating Open to web browser." );
 		[self fireAppShouldSuspend];
 		
 		if ( self.currentState == MRAIDViewStateExpanded )
@@ -418,6 +423,7 @@ shouldStartLoadWithRequest:(NSURLRequest *)request
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
 	NSLog( @"Web View Started Loading" );
+    m_loadingAd = YES;
 }
 
 
@@ -1545,15 +1551,17 @@ lockOrientation:(BOOL)allowOrientationChange
 {
     if ( [self.creativeURL isEqual:creativeURL] )
 	{
-        // force changing current creative
-        [self currentCachedCreativeChanged:creativeId];
-        
-        // now show the cached file
-        NSLog(@"show cachedCreative url = %@", url);
-		NSURLRequest *request = [NSURLRequest requestWithURL:url];
-		m_loadingAd = YES;
-		[m_webView loadRequest:request];
-		[m_webView disableBouncesAndScrolling];
+        if (!m_loadingAd) {
+            // force changing current creative
+            [self currentCachedCreativeChanged:creativeId];
+            
+            // now show the cached file
+            NSLog(@"show cachedCreative url = %@", url);
+            NSURLRequest *request = [NSURLRequest requestWithURL:url];
+            m_loadingAd = YES;
+            [m_webView loadRequest:request];
+            [m_webView disableBouncesAndScrolling];
+        }
 	}
 }
 

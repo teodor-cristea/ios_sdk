@@ -69,7 +69,6 @@ typedef enum MRAIDViewStateEnum
 	
 	BOOL m_isMRIADAd;
 	NSURL *m_launchURL;
-	BOOL m_loadingAd;
 	
 	NSInteger m_modalityCounter;
     
@@ -91,6 +90,7 @@ typedef enum MRAIDViewStateEnum
     CLLocationManager* locationManager;
 @protected
     CLLocation*         userLocation;
+    BOOL m_loadingAd;
 }
 @property( nonatomic, weak ) id<MRAIDViewDelegate> mraidDelegate;
 @property( nonatomic, copy ) NSString *htmlStub;
